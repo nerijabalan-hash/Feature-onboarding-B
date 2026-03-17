@@ -1633,6 +1633,11 @@ body {
   box-shadow: 0 0 6px rgba(74, 97, 237, 0.4);
 }
 
+/* Entrance: scale from 0 with elastic bounce, then hand off to pulse */
+.onboarding-dot.dot-entering {
+  animation: dot-entrance 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
 .onboarding-ring {
   position: absolute;
   width: 16px;
@@ -1643,6 +1648,24 @@ body {
   pointer-events: none;
   animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   transform: translate(-4px, -4px);
+}
+
+.onboarding-ring.dot-entering {
+  animation: ring-entrance 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes dot-entrance {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.3); opacity: 1; }
+  80% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ring-entrance {
+  0% { transform: translate(-4px, -4px) scale(0); opacity: 0; }
+  60% { transform: translate(-4px, -4px) scale(1.3); opacity: 0.3; }
+  80% { transform: translate(-4px, -4px) scale(0.9); opacity: 0.2; }
+  100% { transform: translate(-4px, -4px) scale(1); opacity: 0.3; }
 }
 
 @keyframes pulse-dot {
@@ -1668,6 +1691,10 @@ body {
   opacity: 0;
   transform: scale(0.95);
   transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.onboarding-popover.version-A {
+  border: 1px solid rgba(74, 97, 237, 0.12);
 }
 
 .onboarding-popover.visible {
@@ -1835,7 +1862,7 @@ body {
 .onboarding-popover.version-B {
   padding: 12px 16px;
   max-width: 232px;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.04), 0px 3px 6px rgba(41, 48, 56, 0.04), 0px 9px 18px rgba(41, 48, 56, 0.04);
   transform: translateX(-12px);
 }
@@ -1848,31 +1875,53 @@ body {
 }
 
 .onboarding-popover.version-B .onboarding-popover-step-counter {
+  font-family: 'Garant', 'Segoe UI', sans-serif;
   font-size: 11px;
   font-weight: 600;
-  color: #999;
+  color: #464646;
   letter-spacing: 0.02em;
 }
 
 .onboarding-popover.version-B .onboarding-popover-step-dots {
   display: flex;
-  gap: 4px;
+  gap: 6px;
+  align-items: center;
 }
 
-.onboarding-popover.version-B .onboarding-popover-step-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #d9d9d9;
-  transition: background 200ms ease;
+/* Version B: micro step icons */
+.onboarding-popover.version-B .onboarding-popover-step-icon {
+  width: 14px;
+  height: 14px;
+  color: #d0d0d0;
+  transition: color 300ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.onboarding-popover.version-B .onboarding-popover-step-dot.active {
-  background: #999;
+.onboarding-popover.version-B .onboarding-popover-step-icon svg {
+  width: 12px;
+  height: 12px;
 }
 
-.onboarding-popover.version-B .onboarding-popover-step-dot.done {
-  background: #bbb;
+.onboarding-popover.version-B .onboarding-popover-step-icon.active {
+  color: #4a61ed;
+  animation: step-icon-sweep 400ms ease-out forwards;
+}
+
+@keyframes step-icon-sweep {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    color: #4a61ed;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    color: #4a61ed;
+  }
+}
+
+.onboarding-popover.version-B .onboarding-popover-step-icon.done {
+  color: #999;
 }
 
 .onboarding-popover.version-B .onboarding-popover-text {
@@ -1891,11 +1940,11 @@ body {
 
 /* ========== Popover Version C: frosted glass pill ========== */
 .onboarding-popover.version-C {
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(250, 252, 246, 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.04), 0px 3px 6px rgba(41, 48, 56, 0.04), 0px 9px 18px rgba(41, 48, 56, 0.04);
+  border: 1px solid rgba(250, 252, 246, 0.6);
+  box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.06);
   border-radius: 20px;
   padding: 12px 16px;
   max-width: 230px;
@@ -1926,7 +1975,7 @@ body {
   font-weight: 600;
   font-size: 12px;
   line-height: 16px;
-  color: #BABABA;
+  color: #999;
 }
 
 .onboarding-popover.version-C .onboarding-popover-step-dots {
@@ -2054,23 +2103,23 @@ body {
 /* --- Version D popover: rich card --- */
 .onboarding-popover.version-D {
   background: #fff;
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 0;
-  max-width: 240px;
+  max-width: 232px;
   box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.04), 0px 3px 6px rgba(41, 48, 56, 0.04), 0px 9px 18px rgba(41, 48, 56, 0.04);
   overflow: hidden;
 }
 
 .onboarding-popover.version-D .onboarding-popover-header {
   display: flex;
-  padding: 0 18px;
+  padding: 0 16px;
 }
 
 .onboarding-popover.version-D .onboarding-popover-step {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 18px 0;
+  gap: 8px;
+  padding: 12px 16px 0;
   margin-bottom: 4px;
 }
 
@@ -2091,7 +2140,7 @@ body {
   flex: 1;
   height: 3px;
   border-radius: 2px;
-  background: #e8e8e8;
+  background: #d6d6d6;
   transition: background 400ms ease;
 }
 
@@ -2107,15 +2156,15 @@ body {
   font-size: 13px;
   color: #323232;
   line-height: 1.45;
-  padding: 0 18px;
+  padding: 0 16px;
 }
 
 .onboarding-popover.version-D::after {
   content: '';
   display: block;
   height: 4px;
-  margin-top: 14px;
-  background: #4a61ed;
+  margin-top: 12px;
+  background: linear-gradient(90deg, #4a61ed, #7b8ff2);
 }
 
 /* --- Version D popover entrance --- */

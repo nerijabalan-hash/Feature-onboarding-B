@@ -1031,6 +1031,7 @@ const ONBOARDING_STEPS = [
     popoverTextD: 'First up! Tap here to sort your assets by name, date, or relevance',
     highlightTarget: true,
     completionEvent: 'sort-used',
+    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M4 2v12M4 14l-3-3M4 14l3-3M12 14V2M12 2l-3 3M12 2l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   },
   {
     id: 'favorite',
@@ -1044,6 +1045,7 @@ const ONBOARDING_STEPS = [
     popoverTextD: 'Love this slide? Star it to keep it close!',
     popoverPosition: 'above',
     completionEvent: 'favorite-used',
+    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
   },
   {
     id: 'favorites-nav',
@@ -1056,6 +1058,7 @@ const ONBOARDING_STEPS = [
     popoverTextD: 'All your starred slides live right here — tap to see them!',
     highlightTarget: true,
     completionEvent: 'favorites-nav-used',
+    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="currentColor"/></svg>',
   },
   {
     id: 'flag',
@@ -1069,6 +1072,7 @@ const ONBOARDING_STEPS = [
     popoverTextD: 'Last one! Spot something outdated? Flag it and your admin will know',
     popoverPosition: 'above',
     completionEvent: 'flag-used',
+    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.3"/></svg>',
   },
 ];
 
@@ -1161,6 +1165,16 @@ const onboarding = {
     }
 
     document.body.appendChild(this.ringEl);
+    // Entrance animation: scale from 0 with bounce
+    this.dotEl.classList.add('dot-entering');
+    this.ringEl.classList.add('dot-entering');
+    const onEntranceDone = () => {
+      this.dotEl.classList.remove('dot-entering');
+      this.ringEl.classList.remove('dot-entering');
+      this.dotEl.removeEventListener('animationend', onEntranceDone);
+    };
+    this.dotEl.addEventListener('animationend', onEntranceDone);
+
     document.body.appendChild(this.dotEl);
     if (this.currentVersion === 'C' && this.ring2El) {
       document.body.appendChild(this.ring2El);
@@ -1327,10 +1341,18 @@ const onboarding = {
       const total = ONBOARDING_STEPS.length;
       const current = this.currentStepIndex + 1;
       counterEl.textContent = current + ' of ' + total;
-      dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
-        const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
-        return '<div class="onboarding-popover-step-dot ' + cls + '"></div>';
-      }).join('');
+      if (this.currentVersion === 'B') {
+        // Version B: micro step icons instead of generic dots
+        dotsEl.innerHTML = ONBOARDING_STEPS.map((s, i) => {
+          const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
+          return '<div class="onboarding-popover-step-icon ' + cls + '">' + (s.stepIcon || '') + '</div>';
+        }).join('');
+      } else {
+        dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
+          const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
+          return '<div class="onboarding-popover-step-dot ' + cls + '"></div>';
+        }).join('');
+      }
     }
 
     this.popoverEl.style.position = 'fixed';
@@ -1338,7 +1360,7 @@ const onboarding = {
     // Always position popover below the target element so it doesn't cover the action button
     const refEl = (this.currentVersion === 'D' && this._currentTarget) ? this._currentTarget : this.dotEl;
     const refRect = refEl.getBoundingClientRect();
-    const gap = this.currentVersion === 'D' ? 12 : 6;
+    const gap = this.currentVersion === 'D' ? 12 : this.currentVersion === 'A' ? 8 : 6;
     // Use the actual target element rect to find the bottom edge
     const targetEl = this._currentTarget || this.dotEl;
     const targetRect = targetEl.getBoundingClientRect();
