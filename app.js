@@ -25,15 +25,46 @@ const MOCK_DATA = {
   ],
   folderContents: {
     f1: {
-      folders: [],
+      folders: [
+        { id: 'f1_1', name: 'Brand guidelines', type: 'folder', modified: '2026-03-11T10:00:00' },
+        { id: 'f1_2', name: 'Corporate templates', type: 'folder', modified: '2026-03-09T14:00:00' },
+      ],
       slides: [
         { id: 'g1', name: 'Company overview', type: 'slide', modified: '2026-03-12T10:00:00', color: 1 },
         { id: 'g2', name: 'Mission and values', type: 'slide', modified: '2026-03-10T14:00:00', color: 2 },
         { id: 'g3', name: 'Leadership team', type: 'slide', modified: '2026-03-08T09:00:00', color: 4 },
       ],
     },
-    f2: {
+    f1_1: {
+      folders: [
+        { id: 'f1_1_1', name: 'Logo assets', type: 'folder', modified: '2026-03-10T09:00:00' },
+      ],
+      slides: [
+        { id: 'b1', name: 'Brand colors overview', type: 'slide', modified: '2026-03-10T11:00:00', color: 2 },
+        { id: 'b2', name: 'Typography standards', type: 'slide', modified: '2026-03-09T15:00:00', color: 3 },
+        { id: 'b3', name: 'Visual identity guide', type: 'slide', modified: '2026-03-08T10:00:00', color: 1 },
+      ],
+    },
+    f1_1_1: {
       folders: [],
+      slides: [
+        { id: 'l1', name: 'Primary logo usage', type: 'slide', modified: '2026-03-09T12:00:00', color: 4 },
+        { id: 'l2', name: 'Logo clearspace rules', type: 'slide', modified: '2026-03-08T14:00:00', color: 5 },
+        { id: 'l3', name: 'Co-branding guidelines', type: 'slide', modified: '2026-03-07T09:30:00', color: 2 },
+      ],
+    },
+    f1_2: {
+      folders: [],
+      slides: [
+        { id: 't1', name: 'Executive presentation', type: 'slide', modified: '2026-03-09T10:00:00', color: 1 },
+        { id: 't2', name: 'All-hands meeting', type: 'slide', modified: '2026-03-08T08:00:00', color: 3 },
+      ],
+    },
+    f2: {
+      folders: [
+        { id: 'f2_1', name: 'Engineering', type: 'folder', modified: '2026-03-13T10:00:00' },
+        { id: 'f2_2', name: 'Design', type: 'folder', modified: '2026-03-12T09:00:00' },
+      ],
       slides: [
         { id: 'p1', name: 'Product roadmap', type: 'slide', modified: '2026-03-14T12:00:00', color: 2 },
         { id: 'p2', name: 'Feature prioritization', type: 'slide', modified: '2026-03-13T16:30:00', color: 1 },
@@ -55,12 +86,45 @@ const MOCK_DATA = {
         { id: 'p18', name: 'Infrastructure cost analysis', type: 'slide', modified: '2026-02-28T16:00:00', color: 3 },
       ],
     },
-    f3: {
+    f2_1: {
+      folders: [
+        { id: 'f2_1_1', name: 'Backend', type: 'folder', modified: '2026-03-12T11:00:00' },
+      ],
+      slides: [
+        { id: 'e1', name: 'System architecture', type: 'slide', modified: '2026-03-13T09:00:00', color: 4 },
+        { id: 'e2', name: 'Tech stack overview', type: 'slide', modified: '2026-03-12T14:00:00', color: 2 },
+      ],
+    },
+    f2_1_1: {
       folders: [],
+      slides: [
+        { id: 'be1', name: 'API documentation', type: 'slide', modified: '2026-03-12T10:00:00', color: 3 },
+        { id: 'be2', name: 'Database schema', type: 'slide', modified: '2026-03-11T16:00:00', color: 5 },
+        { id: 'be3', name: 'Microservices overview', type: 'slide', modified: '2026-03-10T12:00:00', color: 1 },
+      ],
+    },
+    f2_2: {
+      folders: [],
+      slides: [
+        { id: 'd1', name: 'Design system components', type: 'slide', modified: '2026-03-12T08:00:00', color: 1 },
+        { id: 'd2', name: 'User flow diagrams', type: 'slide', modified: '2026-03-11T10:00:00', color: 4 },
+      ],
+    },
+    f3: {
+      folders: [
+        { id: 'f3_1', name: 'Case studies', type: 'folder', modified: '2026-03-10T09:00:00' },
+      ],
       slides: [
         { id: 'c1', name: 'Sales enablement deck', type: 'slide', modified: '2026-03-11T10:00:00', color: 1 },
         { id: 'c2', name: 'Pricing strategy', type: 'slide', modified: '2026-03-09T14:30:00', color: 5 },
         { id: 'c3', name: 'Partner program overview', type: 'slide', modified: '2026-03-07T09:00:00', color: 2 },
+      ],
+    },
+    f3_1: {
+      folders: [],
+      slides: [
+        { id: 'cs1', name: 'Enterprise client win', type: 'slide', modified: '2026-03-10T08:00:00', color: 3 },
+        { id: 'cs2', name: 'SMB success story', type: 'slide', modified: '2026-03-09T11:00:00', color: 2 },
       ],
     },
   },
@@ -77,16 +141,262 @@ const SLIDES = [
 ];
 
 // --- State ---
-let currentSort = 'name-asc';
+let currentSort = 'date-desc';
 let currentFolder = null;
+let folderStack = []; // breadcrumb trail: [{id, name}, ...]
 let searchQuery = '';
 let viewMode = 'grid'; // 'grid' or 'list'
+let showFavorites = false;
+const favoritedIds = new Set();
 
 // --- DOM ---
 const sortBtn = document.getElementById('sortBtn');
 const sortDropdown = document.getElementById('sortDropdown');
 const assetList = document.getElementById('assetList');
 const searchInput = document.getElementById('searchInput');
+const breadcrumbBar = document.getElementById('breadcrumbBar');
+const breadcrumbBack = document.getElementById('breadcrumbBack');
+const breadcrumbPath = document.getElementById('breadcrumbPath');
+
+const BREADCRUMB_ROOT_ICON = `<svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14 0C15.1046 0 16 0.895431 16 2V10C16 11.1046 15.1046 12 14 12H2C0.895431 12 0 11.1046 0 10V2C0 0.895431 0.895431 0 2 0H14ZM5 5C5 5.55228 4.55228 6 4 6H2C2 7.65685 3.34315 9 5 9C6.65685 9 8 7.65685 8 6C8 4.34315 6.65685 3 5 3V5ZM10 7C9.44771 7 9 7.44772 9 8C9 8.55229 9.44771 9 10 9H13C13.5523 9 14 8.55229 14 8C14 7.44772 13.5523 7 13 7H10ZM10 3C9.44771 3 9 3.44772 9 4C9 4.55228 9.44771 5 10 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H10Z" fill="#4A61ED"/></svg>`;
+
+// Navigate back one level
+breadcrumbBack.addEventListener('click', () => {
+  if (folderStack.length > 1) {
+    folderStack.pop();
+    currentFolder = folderStack[folderStack.length - 1].id;
+  } else {
+    folderStack = [];
+    currentFolder = null;
+  }
+  render();
+});
+
+function navigateToRoot() {
+  folderStack = [];
+  currentFolder = null;
+  showFavorites = false;
+  updateFavoritesNavBtn();
+  render();
+}
+
+// --- Favorites view ---
+document.getElementById('favoritesNavBtn').addEventListener('click', () => {
+  showFavorites = !showFavorites;
+  if (showFavorites) {
+    currentFolder = null;
+    folderStack = [];
+  }
+  updateFavoritesNavBtn();
+  render();
+});
+
+function updateFavoritesNavBtn() {
+  const btn = document.getElementById('favoritesNavBtn');
+  const title = document.getElementById('browseTitle');
+  if (showFavorites) {
+    btn.classList.add('active');
+    title.textContent = 'Favorites';
+  } else {
+    btn.classList.remove('active');
+    title.textContent = 'Slides & assets';
+  }
+}
+
+// Descriptions for favorites cards
+const SLIDE_DESCRIPTIONS = {
+  a1: 'Introduction slides for academy sessions',
+  a2: 'Updated external facing analysis',
+  a3: 'Commercial slides for competitive edge',
+  a4: 'Personalized engagement strategies',
+  a5: 'Competitive landscape overview',
+  a6: 'Diverse range of solutions overview',
+  a7: 'Building long-term client relationships',
+  a8: 'Market demands and industry trends',
+  a9: 'Industry overview and key metrics',
+  a10: 'Product roadmap and timeline',
+  a11: 'Feature highlights and updates',
+  a12: 'Technical architecture deep dive',
+};
+
+// Folder origin lookup for favorites cards
+const SLIDE_FOLDER_ORIGIN = {
+  a1: 'Global', a2: 'Global', a3: 'Product',
+  a4: 'Product', a5: 'Commercial (NEW)', a6: 'Commercial (NEW)',
+  a7: 'Global', a8: 'Product', a9: 'Global',
+  a10: 'Product', a11: 'Product', a12: 'Product',
+};
+
+function getAllSlides() {
+  const all = [...MOCK_DATA.slides];
+  // Also gather slides from folder contents
+  Object.values(MOCK_DATA.folderContents).forEach(fc => {
+    if (fc.slides) all.push(...fc.slides);
+  });
+  return all;
+}
+
+function renderFavoritesView() {
+  assetList.innerHTML = '';
+  breadcrumbBar.style.display = 'none';
+
+  const allSlides = getAllSlides();
+  const favSlides = allSlides.filter(s => favoritedIds.has(s.id));
+
+  if (favSlides.length === 0) {
+    assetList.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg viewBox="0 0 16 16" width="32" height="32" fill="none">
+            <path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="#ccc" stroke-width="1" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div class="empty-state-text">No favorites yet</div>
+        <div class="empty-state-sub">Star slides to save them here for quick access</div>
+      </div>`;
+    onRenderComplete();
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'asset-card-grid';
+  favSlides.forEach(slide => grid.appendChild(renderFavoriteCard(slide)));
+  assetList.appendChild(grid);
+  onRenderComplete();
+}
+
+function renderFavoriteCard(asset) {
+  const card = document.createElement('div');
+  card.className = 'asset-card favorite-card';
+  card.draggable = true;
+
+  const folder = SLIDE_FOLDER_ORIGIN[asset.id] || '';
+
+  card.innerHTML = `
+    <div class="asset-card-thumb color-${asset.color}">
+      <svg viewBox="0 0 158 89" width="100%" height="100%" fill="none" preserveAspectRatio="xMidYMid meet">
+        <rect width="158" height="89" rx="2" fill="#f0f0f0"/>
+        <rect x="12" y="10" width="60" height="30" rx="2" fill="#ccc" opacity=".4"/>
+        <rect x="12" y="48" width="134" height="6" rx="2" fill="#ddd" opacity=".5"/>
+        <rect x="12" y="60" width="100" height="5" rx="2" fill="#ddd" opacity=".3"/>
+        <rect x="12" y="72" width="80" height="4" rx="2" fill="#ddd" opacity=".2"/>
+      </svg>
+      <div class="fav-star-badge">
+        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="#b8860b" stroke-width="1" stroke-linejoin="round" fill="#daa520"/></svg>
+      </div>
+    </div>
+    <div class="asset-card-actions">
+      <button class="asset-card-action-btn favorited" title="Remove from favorites" data-action="favorite">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="currentColor"/></svg>
+      </button>
+      <button class="asset-card-action-btn" title="Comment" data-action="flag">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+      </button>
+    </div>
+    <div class="asset-card-name">${asset.name}</div>
+    <a class="fav-card-folder-link" href="#" data-folder="${folder}">
+      <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><path d="M1.5 3A1.5 1.5 0 013 1.5h3.17a1.5 1.5 0 011.21.62L8.5 3.5H13A1.5 1.5 0 0114.5 5v7a1.5 1.5 0 01-1.5 1.5H3A1.5 1.5 0 011.5 12V3z" stroke="#999" stroke-width="1.1"/></svg>
+      <span>${folder}</span>
+    </a>
+  `;
+
+  // Unfavorite
+  const favBtn = card.querySelector('[data-action="favorite"]');
+  favBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    favoritedIds.delete(asset.id);
+    render();
+  });
+
+  // Flag button
+  const flagBtn = card.querySelector('[data-action="flag"]');
+  flagBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    alert(`Asset "${asset.name}" has been flagged to admin.`);
+  });
+
+  // Folder link — navigate to the folder containing this asset
+  const folderLink = card.querySelector('.fav-card-folder-link');
+  if (folderLink) {
+    folderLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showFavorites = false;
+      updateFavoritesNavBtn();
+      // Find and navigate to the folder
+      const folderName = folderLink.dataset.folder;
+      const targetFolder = allSlides.find(s => s.type === 'folder' && s.name === folderName);
+      if (targetFolder) {
+        folderStack = [{ id: targetFolder.id, name: targetFolder.name }];
+        currentFolder = targetFolder.id;
+      } else {
+        folderStack = [];
+        currentFolder = null;
+      }
+      render();
+    });
+  }
+
+  card.addEventListener('dragstart', (e) => {
+    card.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.setData('application/json', JSON.stringify({ name: asset.name, color: asset.color }));
+  });
+  card.addEventListener('dragend', () => card.classList.remove('dragging'));
+
+  return card;
+}
+
+function navigateToStackLevel(level) {
+  // level is the index in folderStack to navigate to
+  folderStack = folderStack.slice(0, level + 1);
+  currentFolder = folderStack[folderStack.length - 1].id;
+  render();
+}
+
+function updateBreadcrumbs() {
+  breadcrumbPath.innerHTML = '';
+
+  // Root icon (always clickable)
+  const rootBtn = document.createElement('button');
+  rootBtn.className = 'breadcrumb-icon-link';
+  rootBtn.innerHTML = BREADCRUMB_ROOT_ICON;
+  rootBtn.title = 'Slides & assets';
+  rootBtn.addEventListener('click', navigateToRoot);
+  breadcrumbPath.appendChild(rootBtn);
+
+  if (folderStack.length === 0) return;
+
+  // Separator after root
+  breadcrumbPath.appendChild(createBreadcrumbSep());
+
+  if (folderStack.length === 1) {
+    // 1 level: icon / Folder name
+    const current = document.createElement('span');
+    current.className = 'breadcrumb-current';
+    current.textContent = folderStack[0].name;
+    breadcrumbPath.appendChild(current);
+  } else {
+    // 2+ levels: icon / ... / Folder name
+    const ellipsis = document.createElement('span');
+    ellipsis.className = 'breadcrumb-ellipsis';
+    ellipsis.textContent = '...';
+    breadcrumbPath.appendChild(ellipsis);
+    breadcrumbPath.appendChild(createBreadcrumbSep());
+
+    const current = document.createElement('span');
+    current.className = 'breadcrumb-current';
+    current.textContent = folderStack[folderStack.length - 1].name;
+    breadcrumbPath.appendChild(current);
+  }
+}
+
+function createBreadcrumbSep() {
+  const sep = document.createElement('span');
+  sep.className = 'breadcrumb-sep';
+  sep.textContent = '/';
+  return sep;
+}
 
 // --- Generate slide thumbnails ---
 function renderSlideThumbnails() {
@@ -116,6 +426,7 @@ function renderSlideThumbnails() {
 
 // --- Sort Icon SVGs ---
 const SORT_ICONS = {
+  'relevant': `<svg viewBox="0 0 12 12" width="14" height="13"><g clip-path="url(#clip_btn_rel)"><path d="M2.65 0H4.05V8.85L5.75 7.15L6.7 8.1L3.35 11.45L0 8.1L0.95 7.15L2.65 8.85V0ZM6.7 0H8.3V0.7H7.8V8H7.2V0.7H6.7V0ZM8.55 0H10.15V8H8.55V0ZM9.05 0.6V7.4H9.65V0.6H9.05ZM10.4 0H12V4H10.9V8H10.4V0ZM10.9 0.6V3.4H11.5V0.6H10.9Z" fill="#464646"/></g><defs><clipPath id="clip_btn_rel"><rect width="12" height="12" fill="white"/></clipPath></defs></svg>`,
   'name-asc': `<svg viewBox="0 0 13 12" width="14" height="13"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text></svg>`,
   'name-desc': `<svg viewBox="0 0 13 12" width="14" height="13"><path d="M1.5 11V1M1.5 1L0 2.5M1.5 1L3 2.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text></svg>`,
   'date-desc': `<svg viewBox="0 0 12 12" width="14" height="13"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5.5 3h6M5.5 6h4.5M5.5 9h3" stroke="#464646" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>`,
@@ -181,6 +492,9 @@ document.querySelectorAll('.ribbon-tab').forEach(tab => {
 function sortItems(items, sortKey) {
   const sorted = [...items];
   switch (sortKey) {
+    case 'relevant':
+      // Keep original order
+      break;
     case 'name-asc':
       sorted.sort((a, b) => a.name.localeCompare(b.name));
       break;
@@ -231,19 +545,21 @@ function backArrowSvg() {
 // --- Date Grouping ---
 function getDateGroup(dateStr) {
   const d = new Date(dateStr);
-  const now = new Date();
-  const diffMs = now - d;
-  const diffHours = diffMs / (1000 * 60 * 60);
-  const diffDays = diffMs / (1000 * 60 * 60 * 24);
-
-  if (diffHours <= 24) return 'Last 24 hours';
-  if (diffDays <= 7) return 'Last 7 days';
-  if (diffDays <= 14) return 'Last 14 days';
-  if (diffDays <= 30) return 'Last 30 days';
-  return 'Older';
+  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }
 
-const DATE_GROUP_ORDER = ['Last 24 hours', 'Last 7 days', 'Last 14 days', 'Last 30 days', 'Older'];
+function getDateGroupOrder(items) {
+  const seen = new Set();
+  const order = [];
+  items.forEach(item => {
+    const group = getDateGroup(item.modified);
+    if (!seen.has(group)) {
+      seen.add(group);
+      order.push(group);
+    }
+  });
+  return order;
+}
 
 function groupByDate(items) {
   const groups = {};
@@ -273,9 +589,51 @@ function renderAssetCard(asset) {
         <rect x="12" y="72" width="80" height="4" rx="2" fill="#ddd" opacity=".2"/>
       </svg>
     </div>
+    <div class="asset-card-actions">
+      <button class="asset-card-action-btn" title="Add to favorites" data-action="favorite">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/></svg>
+      </button>
+      <button class="asset-card-action-btn" title="Comment" data-action="flag">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+      </button>
+    </div>
     <div class="asset-card-name">${asset.name}</div>
-    <div class="asset-card-tooltip">${asset.name}</div>
   `;
+
+  // Favorite button toggle
+  const favBtn = card.querySelector('[data-action="favorite"]');
+  const actionsContainer = card.querySelector('.asset-card-actions');
+  // Pre-fill if already favorited
+  if (favoritedIds.has(asset.id)) {
+    favBtn.classList.add('favorited');
+    favBtn.querySelector('path').setAttribute('fill', 'currentColor');
+    actionsContainer.classList.add('has-favorited');
+  }
+  favBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    favBtn.classList.toggle('favorited');
+    const star = favBtn.querySelector('path');
+    if (favBtn.classList.contains('favorited')) {
+      star.setAttribute('fill', 'currentColor');
+      actionsContainer.classList.add('has-favorited');
+      favoritedIds.add(asset.id);
+    } else {
+      star.setAttribute('fill', 'none');
+      actionsContainer.classList.remove('has-favorited');
+      favoritedIds.delete(asset.id);
+    }
+    // Re-render if on favorites page (card was unfavorited)
+    if (showFavorites && !favoritedIds.has(asset.id)) {
+      render();
+    }
+  });
+
+  // Flag button
+  const flagBtn = card.querySelector('[data-action="flag"]');
+  flagBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    alert(`Asset "${asset.name}" has been flagged to admin.`);
+  });
 
   card.addEventListener('dragstart', (e) => {
     card.classList.add('dragging');
@@ -294,18 +652,19 @@ function renderAssetCard(asset) {
 function render() {
   assetList.innerHTML = '';
 
-  // If inside a folder, show its contents with a back button
+  // Favorites view
+  if (showFavorites) {
+    renderFavoritesView();
+    return;
+  }
+
+  // Update breadcrumb bar visibility
   if (currentFolder) {
     const folderData = MOCK_DATA.folderContents[currentFolder];
-    const folderInfo = MOCK_DATA.folders.find(f => f.id === currentFolder);
-    if (!folderData) { currentFolder = null; render(); return; }
+    if (!folderData) { currentFolder = null; folderStack = []; render(); return; }
 
-    // Back breadcrumb
-    const breadcrumb = document.createElement('div');
-    breadcrumb.className = 'breadcrumb';
-    breadcrumb.innerHTML = `${backArrowSvg()} <span>${folderInfo ? folderInfo.name : 'Back'}</span>`;
-    breadcrumb.addEventListener('click', () => { currentFolder = null; render(); });
-    assetList.appendChild(breadcrumb);
+    breadcrumbBar.style.display = 'flex';
+    updateBreadcrumbs();
 
     let folders = folderData.folders || [];
     let slides = folderData.slides || [];
@@ -317,27 +676,29 @@ function render() {
 
     if (folders.length === 0 && slides.length === 0) {
       assetList.insertAdjacentHTML('beforeend', renderEmptyState());
+      onRenderComplete();
       return;
     }
 
     const sortedFolders = sortItems(folders, currentSort);
     const sortedSlides = sortItems(slides, currentSort);
 
+    renderFlatFolders(sortedFolders);
     if (isDateSort()) {
-      const allItems = [...sortedFolders, ...sortedSlides];
-      const sorted = sortItems(allItems, currentSort);
-      renderGroupedItems(sorted);
-    } else {
-      renderFlatFolders(sortedFolders);
-      if (sortedSlides.length > 0) {
-        const grid = document.createElement('div');
-        grid.className = 'asset-card-grid';
-        sortedSlides.forEach(slide => grid.appendChild(renderAssetCard(slide)));
-        assetList.appendChild(grid);
-      }
+      renderGroupedSlides(sortedSlides);
+    } else if (sortedSlides.length > 0) {
+      const grid = document.createElement('div');
+      grid.className = 'asset-card-grid';
+      sortedSlides.forEach(slide => grid.appendChild(renderAssetCard(slide)));
+      assetList.appendChild(grid);
     }
+    onRenderComplete();
     return;
   }
+
+  // Hide breadcrumb at root
+  breadcrumbBar.style.display = 'none';
+  folderStack = [];
 
   // Root level
   let folders = MOCK_DATA.folders;
@@ -350,32 +711,48 @@ function render() {
 
   if (folders.length === 0 && slides.length === 0) {
     assetList.innerHTML = renderEmptyState();
+    onRenderComplete();
     return;
   }
 
+  const sortedFolders = sortItems(folders, currentSort);
+  const sortedSlides = sortItems(slides, currentSort);
+  renderFlatFolders(sortedFolders);
   if (isDateSort()) {
-    const allItems = [
-      ...sortItems(folders, currentSort),
-      ...sortItems(slides, currentSort),
-    ];
-    const sorted = sortItems(allItems, currentSort);
-    renderGroupedItems(sorted);
-  } else {
-    const sortedFolders = sortItems(folders, currentSort);
-    const sortedSlides = sortItems(slides, currentSort);
-    renderFlatFolders(sortedFolders);
-    if (sortedSlides.length > 0) {
-      const grid = document.createElement('div');
-      grid.className = 'asset-card-grid';
-      sortedSlides.forEach(slide => grid.appendChild(renderAssetCard(slide)));
-      assetList.appendChild(grid);
-    }
+    renderGroupedSlides(sortedSlides);
+  } else if (sortedSlides.length > 0) {
+    const grid = document.createElement('div');
+    grid.className = 'asset-card-grid';
+    sortedSlides.forEach(slide => grid.appendChild(renderAssetCard(slide)));
+    assetList.appendChild(grid);
   }
+  onRenderComplete();
+}
+
+function renderGroupedSlides(slides) {
+  if (slides.length === 0) return;
+  const groups = groupByDate(slides);
+  const order = getDateGroupOrder(slides);
+
+  order.forEach(groupName => {
+    const items = groups[groupName];
+    if (!items || items.length === 0) return;
+
+    const header = document.createElement('div');
+    header.className = 'date-group-header';
+    header.textContent = groupName;
+    assetList.appendChild(header);
+
+    const grid = document.createElement('div');
+    grid.className = 'asset-card-grid';
+    items.forEach(slide => grid.appendChild(renderAssetCard(slide)));
+    assetList.appendChild(grid);
+  });
 }
 
 function renderGroupedItems(sorted) {
   const groups = groupByDate(sorted);
-  const order = currentSort === 'date-asc' ? [...DATE_GROUP_ORDER].reverse() : DATE_GROUP_ORDER;
+  const order = getDateGroupOrder(sorted);
 
   order.forEach(groupName => {
     const items = groups[groupName];
@@ -415,6 +792,7 @@ function renderFolderRow(folder) {
     <div class="folder-name">${folder.name}</div>
   `;
   row.addEventListener('click', () => {
+    folderStack.push({ id: folder.id, name: folder.name });
     currentFolder = folder.id;
     render();
   });
@@ -423,7 +801,7 @@ function renderFolderRow(folder) {
 
 function renderGroupedFolders(sorted) {
   const groups = groupByDate(sorted);
-  const order = currentSort === 'date-asc' ? [...DATE_GROUP_ORDER].reverse() : DATE_GROUP_ORDER;
+  const order = getDateGroupOrder(sorted);
 
   order.forEach(groupName => {
     const items = groups[groupName];
@@ -451,6 +829,12 @@ function renderFlatFolders(sorted) {
     container.appendChild(renderFolderRow(folder));
   });
   assetList.appendChild(container);
+}
+
+function onRenderComplete() {
+  if (typeof onboarding !== 'undefined' && onboarding.init && !onboarding.isComplete) {
+    onboarding.onRender();
+  }
 }
 
 function renderEmptyState() {
@@ -491,20 +875,6 @@ document.addEventListener('mouseup', () => {
   }
 });
 
-// --- AI Popover ---
-const aiRailBtn = document.getElementById('aiRailBtn');
-const aiPopover = document.getElementById('aiPopover');
-
-aiRailBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  aiPopover.classList.toggle('open');
-});
-
-document.addEventListener('click', (e) => {
-  if (!aiPopover.contains(e.target) && e.target !== aiRailBtn) {
-    aiPopover.classList.remove('open');
-  }
-});
 
 // --- Drag & Drop: Right pane → Left slide panel & center canvas ---
 function getActiveSlideIndex() {
@@ -637,8 +1007,596 @@ function updateStatusBar(activeSlideNum) {
   }
 }
 
+// --- Collapse / Expand Task Pane ---
+const expandPaneBtn = document.getElementById('expandPaneBtn');
+
+expandPaneBtn.addEventListener('click', () => {
+  const isVisible = taskPane.style.display !== 'none';
+  taskPane.style.display = isVisible ? 'none' : 'flex';
+});
+
+// =============================================
+// Onboarding: Sequential Pulsating Dot System
+// =============================================
+
+const ONBOARDING_STEPS = [
+  {
+    id: 'sort',
+    version: 1,
+    targetSelector: '#sortBtn',
+    popoverTitle: 'Sort',
+    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M4 2v12M4 14l-3-3M4 14l3-3M12 14V2M12 2l-3 3M12 2l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    popoverText: 'Sort your assets by name, date, or relevance',
+    popoverTextB: 'Try sorting your assets — tap to organize by name, date, or relevance',
+    popoverTextD: 'First up! Tap here to sort your assets by name, date, or relevance',
+    highlightTarget: true,
+    completionEvent: 'sort-used',
+  },
+  {
+    id: 'favorite',
+    version: 1,
+    targetSelector: '.asset-card-thumb',
+    dotOffset: { top: 4, right: 4 },
+    popoverTitle: 'Favorites',
+    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>',
+    popoverText: 'Add slides to your favorites for quick access',
+    popoverTextB: 'Tap the star to save this slide to your favorites',
+    popoverTextD: 'Love this slide? Star it to keep it close!',
+    popoverPosition: 'above',
+    completionEvent: 'favorite-used',
+  },
+  {
+    id: 'favorites-nav',
+    version: 1,
+    targetSelector: '#favoritesNavBtn',
+    popoverTitle: 'Favorites',
+    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>',
+    popoverText: 'Your favorites are saved here for quick access',
+    popoverTextB: 'Find all your saved favorites here',
+    popoverTextD: 'All your starred slides live right here — tap to see them!',
+    highlightTarget: true,
+    completionEvent: 'favorites-nav-used',
+  },
+  {
+    id: 'flag',
+    version: 1,
+    targetSelector: '.asset-card-thumb',
+    dotOffset: { top: 36, right: 4 },
+    popoverTitle: 'Flag content',
+    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2"/></svg>',
+    popoverText: 'Flag outdated content for your admin to review',
+    popoverTextB: 'See something outdated? Tap to flag it for your admin',
+    popoverTextD: 'Last one! Spot something outdated? Flag it and your admin will know',
+    popoverPosition: 'above',
+    completionEvent: 'flag-used',
+  },
+];
+
+const ONBOARDING_STORAGE_KEY = 'templafy_onboarding';
+const ONBOARDING_VERSION = 1;
+
+const onboarding = {
+  currentStepIndex: 0,
+  dotEl: null,
+  ringEl: null,
+  popoverEl: null,
+  popoverTextEl: null,
+  isComplete: false,
+  positionRAF: null,
+  currentVersion: 'A',
+
+  init() {
+    this.popoverEl = document.getElementById('onboardingPopover');
+    this.popoverTextEl = document.getElementById('onboardingPopoverText');
+
+    // Check localStorage
+    const saved = this.loadState();
+    if (saved && saved.version >= ONBOARDING_VERSION && saved.completed) {
+      this.isComplete = true;
+      this.currentStepIndex = ONBOARDING_STEPS.length;
+      this.initToolbar();
+      return;
+    }
+    if (saved && saved.stepIndex !== undefined) {
+      this.currentStepIndex = saved.stepIndex;
+    }
+
+    // Create dot + ring elements
+    this.dotEl = document.createElement('div');
+    this.dotEl.className = 'onboarding-dot';
+    this.ringEl = document.createElement('div');
+    this.ringEl.className = 'onboarding-ring';
+
+    // Dot hover shows popover
+    this.dotEl.addEventListener('mouseenter', () => this.showPopover());
+    this.dotEl.addEventListener('mouseleave', () => this.hidePopover());
+
+    // Listen for completion events
+    this.listenForCompletions();
+
+    // Init toolbar
+    this.initToolbar();
+
+    // Apply version class
+    this.applyVersion();
+
+    // Show first active step
+    this.activateStep();
+  },
+
+  loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(ONBOARDING_STORAGE_KEY));
+    } catch { return null; }
+  },
+
+  saveState() {
+    localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({
+      version: ONBOARDING_VERSION,
+      stepIndex: this.currentStepIndex,
+      completed: this.isComplete,
+    }));
+  },
+
+  activateStep() {
+    if (this.currentStepIndex >= ONBOARDING_STEPS.length) {
+      this.completeAll();
+      return;
+    }
+
+    this.hidePopover();
+    this.removeDot();
+
+    // Wait a tick for DOM to settle (cards may need to render)
+    requestAnimationFrame(() => this.placeDot());
+  },
+
+  placeDot() {
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    const target = document.querySelector(step.targetSelector);
+
+    if (!target) {
+      this._retryTimeout = setTimeout(() => this.placeDot(), 500);
+      return;
+    }
+
+    document.body.appendChild(this.ringEl);
+    document.body.appendChild(this.dotEl);
+    if (this.currentVersion === 'C' && this.ring2El) {
+      document.body.appendChild(this.ring2El);
+    }
+    // Version D: append gradient ring
+    if (this.currentVersion === 'D' && this.dRingEl) {
+      document.body.appendChild(this.dRingEl);
+      this.positionDRing(target);
+    }
+
+    this._positionDotOnTarget(target, step.dotOffset);
+
+    // Show popover when hovering the dot's area or the target
+    this._targetHoverIn = () => this.showPopover();
+    this._targetHoverOut = () => this.hidePopover();
+    target.addEventListener('mouseenter', this._targetHoverIn);
+    target.addEventListener('mouseleave', this._targetHoverOut);
+    this._currentTarget = target;
+
+    // For card-based steps, also show card actions on dot hover
+    const parentCard = target.closest('.asset-card');
+    if (parentCard) {
+      this._hoverCard = parentCard;
+      this._dotCardHoverIn = () => parentCard.classList.add('onboarding-hover');
+      this._dotCardHoverOut = () => parentCard.classList.remove('onboarding-hover');
+      this.dotEl.addEventListener('mouseenter', this._dotCardHoverIn);
+      this.dotEl.addEventListener('mouseleave', this._dotCardHoverOut);
+      target.addEventListener('mouseenter', this._dotCardHoverIn);
+      target.addEventListener('mouseleave', this._dotCardHoverOut);
+    }
+
+    // Version B: subtle highlight on navigation targets
+    if (this.currentVersion === 'B' && step.highlightTarget) {
+      target.classList.add('onboarding-highlight');
+      this._highlightedTarget = target;
+    }
+
+    this._startPositionLoop(target);
+  },
+
+  _positionDotOnTarget(target, offset) {
+    const rect = target.getBoundingClientRect();
+    const dotSize = 8;
+    let top, left;
+
+    if (offset) {
+      // Custom offset: position relative to the target's top-right area
+      top = rect.top + offset.top;
+      left = rect.right - offset.right - dotSize;
+    } else {
+      // Default: top-right corner of target
+      top = rect.top - dotSize / 2 + 2;
+      left = rect.right - dotSize / 2 - 2;
+    }
+
+    this.dotEl.style.position = 'fixed';
+    this.dotEl.style.top = top + 'px';
+    this.dotEl.style.left = left + 'px';
+
+    this.ringEl.style.position = 'fixed';
+    this.ringEl.style.top = top + 'px';
+    this.ringEl.style.left = left + 'px';
+
+    if (this.ring2El && this.ring2El.parentNode) {
+      this.ring2El.style.position = 'fixed';
+      this.ring2El.style.top = top + 'px';
+      this.ring2El.style.left = left + 'px';
+    }
+
+    // Hide dot/rings when card-targeting steps scroll outside the asset list
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
+    if (isCardStep) {
+      const assetList = document.getElementById('assetList');
+      if (assetList) {
+        const listRect = assetList.getBoundingClientRect();
+        const isOutside = top < listRect.top || top > listRect.bottom;
+        const vis = isOutside ? 'hidden' : 'visible';
+        this.dotEl.style.visibility = vis;
+        this.ringEl.style.visibility = vis;
+        if (this.ring2El && this.ring2El.parentNode) this.ring2El.style.visibility = vis;
+      }
+    } else {
+      this.dotEl.style.visibility = 'visible';
+      this.ringEl.style.visibility = 'visible';
+      if (this.ring2El && this.ring2El.parentNode) this.ring2El.style.visibility = 'visible';
+    }
+  },
+
+  _startPositionLoop(target) {
+    this._stopPositionLoop();
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    const loop = () => {
+      if (!this.dotEl || !this.dotEl.parentNode) return;
+      const el = document.querySelector(step?.targetSelector);
+      if (el) {
+        this._positionDotOnTarget(el, step?.dotOffset);
+        // Version D: also reposition gradient ring
+        if (this.currentVersion === 'D') {
+          this.positionDRing(el);
+        }
+      }
+      this.positionRAF = requestAnimationFrame(loop);
+    };
+    this.positionRAF = requestAnimationFrame(loop);
+  },
+
+  _stopPositionLoop() {
+    if (this.positionRAF) {
+      cancelAnimationFrame(this.positionRAF);
+      this.positionRAF = null;
+    }
+  },
+
+  removeDot() {
+    this._stopPositionLoop();
+    if (this._retryTimeout) clearTimeout(this._retryTimeout);
+    if (this.dotEl && this.dotEl.parentNode) this.dotEl.parentNode.removeChild(this.dotEl);
+    if (this.ringEl && this.ringEl.parentNode) this.ringEl.parentNode.removeChild(this.ringEl);
+    if (this.ring2El && this.ring2El.parentNode) this.ring2El.parentNode.removeChild(this.ring2El);
+    if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.parentNode.removeChild(this.dRingEl);
+
+    // Remove hover listeners from previous target
+    if (this._currentTarget) {
+      this._currentTarget.removeEventListener('mouseenter', this._targetHoverIn);
+      this._currentTarget.removeEventListener('mouseleave', this._targetHoverOut);
+      if (this._dotCardHoverIn) {
+        this._currentTarget.removeEventListener('mouseenter', this._dotCardHoverIn);
+        this._currentTarget.removeEventListener('mouseleave', this._dotCardHoverOut);
+      }
+      this._currentTarget = null;
+    }
+    if (this._hoverCard) {
+      this._hoverCard.classList.remove('onboarding-hover');
+      this._hoverCard = null;
+    }
+    if (this._highlightedTarget) {
+      this._highlightedTarget.classList.remove('onboarding-highlight');
+      this._highlightedTarget = null;
+    }
+    if (this.dotEl && this._dotCardHoverIn) {
+      this.dotEl.removeEventListener('mouseenter', this._dotCardHoverIn);
+      this.dotEl.removeEventListener('mouseleave', this._dotCardHoverOut);
+      this._dotCardHoverIn = null;
+      this._dotCardHoverOut = null;
+    }
+  },
+
+  showPopover() {
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    if (!step) return;
+
+    document.getElementById('onboardingPopoverIcon').innerHTML = step.popoverIcon;
+    document.getElementById('onboardingPopoverTitle').textContent = step.popoverTitle;
+
+    // Use version-specific text if available
+    const textKey = 'popoverText' + this.currentVersion;
+    this.popoverTextEl.textContent = step[textKey] || step.popoverText;
+
+    // Render step counter (visible only in Version B via CSS)
+    const counterEl = document.getElementById('onboardingPopoverStepCounter');
+    const dotsEl = document.getElementById('onboardingPopoverStepDots');
+    if (counterEl && dotsEl) {
+      const total = ONBOARDING_STEPS.length;
+      const current = this.currentStepIndex + 1;
+      counterEl.textContent = current + ' of ' + total;
+      dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
+        const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
+        return '<div class="onboarding-popover-step-dot ' + cls + '"></div>';
+      }).join('');
+    }
+
+    this.popoverEl.style.position = 'fixed';
+
+    // Always position popover below the target element so it doesn't cover the action button
+    const refEl = (this.currentVersion === 'D' && this._currentTarget) ? this._currentTarget : this.dotEl;
+    const refRect = refEl.getBoundingClientRect();
+    const gap = this.currentVersion === 'D' ? 12 : 6;
+    // Use the actual target element rect to find the bottom edge
+    const targetEl = this._currentTarget || this.dotEl;
+    const targetRect = targetEl.getBoundingClientRect();
+    this.popoverEl.style.left = (refRect.left + refRect.width / 2 - 120) + 'px';
+    this.popoverEl.style.top = (targetRect.bottom + gap) + 'px';
+    this.popoverEl.style.transform = 'scale(1)';
+
+    // Clamp popover within task pane edges (8px padding)
+    const pane = document.getElementById('taskPane');
+    if (pane) {
+      const paneRect = pane.getBoundingClientRect();
+      const popRect = this.popoverEl.getBoundingClientRect();
+      const pad = 24;
+      let left = parseFloat(this.popoverEl.style.left);
+      if (left < paneRect.left + pad) left = paneRect.left + pad;
+      if (left + popRect.width > paneRect.right - pad) left = paneRect.right - pad - popRect.width;
+      this.popoverEl.style.left = left + 'px';
+    }
+
+    this.popoverEl.classList.add('visible');
+  },
+
+  hidePopover() {
+    if (this.popoverEl) this.popoverEl.classList.remove('visible');
+  },
+
+  applyVersion() {
+    if (!this.popoverEl) return;
+    this.popoverEl.classList.remove('version-A', 'version-B', 'version-C', 'version-D');
+    this.popoverEl.classList.add('version-' + this.currentVersion);
+    // Version C beacon dot style
+    document.body.classList.toggle('version-C-dot', this.currentVersion === 'C');
+    document.body.classList.toggle('version-D-dot', this.currentVersion === 'D');
+    // Manage extra ripple ring for version C
+    if (this.currentVersion === 'C') {
+      if (!this.ring2El) {
+        this.ring2El = document.createElement('div');
+        this.ring2El.className = 'onboarding-ring-2';
+      }
+    }
+    // Version D: gradient ring element
+    if (this.currentVersion === 'D') {
+      if (!this.dRingEl) {
+        this.dRingEl = document.createElement('div');
+        this.dRingEl.className = 'onboarding-d-ring';
+        this.dRingEl.innerHTML = '<div class="onboarding-d-ring-inner"></div>';
+      }
+    }
+    if (this.currentVersion !== 'D') {
+      if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.remove();
+    }
+  },
+
+  // --- Version D helpers ---
+  positionDRing(target) {
+    if (!this.dRingEl || this.currentVersion !== 'D') return;
+    // For card steps, wrap the whole card (thumb + title)
+    const card = target.closest('.asset-card');
+    const ringTarget = card || target;
+    const rect = ringTarget.getBoundingClientRect();
+    const pad = 4;
+    this.dRingEl.style.position = 'fixed';
+    this.dRingEl.style.left = (rect.left - pad) + 'px';
+    this.dRingEl.style.top = (rect.top - pad) + 'px';
+    this.dRingEl.style.width = (rect.width + pad * 2) + 'px';
+    this.dRingEl.style.height = (rect.height + pad * 2) + 'px';
+
+    // Clip ring so it doesn't overlap navigation/toolbar (only for card-targeting steps)
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
+    if (isCardStep) {
+      const assetList = document.getElementById('assetList');
+      if (assetList) {
+        const listRect = assetList.getBoundingClientRect();
+        const ringTop = rect.top - pad;
+        const ringHeight = rect.height + pad * 2;
+        if (ringTop < listRect.top) {
+          const clipTop = listRect.top - ringTop;
+          this.dRingEl.style.clipPath = `inset(${clipTop}px 0 0 0)`;
+        } else if (ringTop + ringHeight > listRect.bottom) {
+          const clipBottom = (ringTop + ringHeight) - listRect.bottom;
+          this.dRingEl.style.clipPath = `inset(0 0 ${clipBottom}px 0)`;
+        } else {
+          this.dRingEl.style.clipPath = '';
+        }
+      }
+    } else {
+      this.dRingEl.style.clipPath = '';
+    }
+  },
+
+
+
+  completeStep(eventName) {
+    if (this.isComplete) return;
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    if (!step || step.completionEvent !== eventName) return;
+
+    this.removeDot();
+    this.hidePopover();
+    this.currentStepIndex++;
+    this.saveState();
+
+    this.updateToolbar();
+
+    if (this.currentStepIndex >= ONBOARDING_STEPS.length) {
+      this.completeAll();
+    } else {
+      // 1 second delay before showing next step
+      setTimeout(() => this.activateStep(), 1000);
+    }
+  },
+
+  completeAll() {
+    this.isComplete = true;
+    this.removeDot();
+    this.hidePopover();
+    this.saveState();
+    this.updateToolbar();
+    // Version D: set progress to 100% then hide
+    const progressEl = document.getElementById('onboardingDProgress');
+    const fill = document.getElementById('onboardingDProgressFill');
+    if (fill) fill.style.width = '100%';
+    setTimeout(() => {
+      if (progressEl) progressEl.style.display = 'none';
+    }, 1500);
+  },
+
+  listenForCompletions() {
+    // Step 1: Sort — complete when user clicks the sort button (opens dropdown)
+    document.getElementById('sortBtn').addEventListener('click', () => {
+      this.completeStep('sort-used');
+    });
+
+    // Favorites nav button — complete when user clicks it
+    document.getElementById('favoritesNavBtn').addEventListener('click', () => {
+      this.completeStep('favorites-nav-used');
+    });
+
+    // Favorite & flag on cards: use capture phase since card handlers call stopPropagation
+    document.getElementById('assetList').addEventListener('click', (e) => {
+      const favBtn = e.target.closest('[data-action="favorite"]');
+      if (favBtn) {
+        this.completeStep('favorite-used');
+        return;
+      }
+      const flagBtn = e.target.closest('[data-action="flag"]');
+      if (flagBtn) {
+        this.completeStep('flag-used');
+      }
+    }, true);
+  },
+
+  // --- Prototype toolbar ---
+  initToolbar() {
+    this.toolbarStepsEl = document.getElementById('protoToolbarSteps');
+
+    this.toolbarStepsEl.innerHTML = '';
+    ONBOARDING_STEPS.forEach((step) => {
+      const dot = document.createElement('div');
+      dot.className = 'proto-step-dot';
+      dot.title = step.id;
+      this.toolbarStepsEl.appendChild(dot);
+    });
+
+    this.updateToolbar();
+
+    document.getElementById('protoResetBtn').addEventListener('click', () => {
+      this.removeDot();
+      this.hidePopover();
+      this.currentStepIndex = 0;
+      this.isComplete = false;
+      this.saveState();
+      this.updateToolbar();
+      // Reset favorites state
+      favoritedIds.clear();
+      showFavorites = false;
+      updateFavoritesNavBtn();
+      // Also reset any favorited stars
+      document.querySelectorAll('.asset-card-action-btn.favorited').forEach(btn => {
+        btn.classList.remove('favorited');
+        btn.querySelector('path')?.setAttribute('fill', 'none');
+        btn.closest('.asset-card-actions')?.classList.remove('has-favorited');
+      });
+      this.applyVersion();
+      render();
+      this.activateStep();
+    });
+
+    // Version switcher
+    document.querySelectorAll('.proto-version-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.proto-version-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        this.currentVersion = btn.dataset.version;
+        this.applyVersion();
+        // Reset onboarding to show changes
+        this.removeDot();
+        this.hidePopover();
+        this.currentStepIndex = 0;
+        this.isComplete = false;
+        this.saveState();
+        this.updateToolbar();
+        favoritedIds.clear();
+        showFavorites = false;
+        updateFavoritesNavBtn();
+        document.querySelectorAll('.asset-card-action-btn.favorited').forEach(b => {
+          b.classList.remove('favorited');
+          b.querySelector('path')?.setAttribute('fill', 'none');
+          b.closest('.asset-card-actions')?.classList.remove('has-favorited');
+        });
+        render();
+        this.activateStep();
+      });
+    });
+
+    document.getElementById('protoSkipBtn').addEventListener('click', () => {
+      if (this.isComplete) return;
+      this.removeDot();
+      this.hidePopover();
+      this.currentStepIndex++;
+      this.saveState();
+      if (this.currentStepIndex >= ONBOARDING_STEPS.length) {
+        this.completeAll();
+      } else {
+        this.activateStep();
+      }
+      this.updateToolbar();
+    });
+  },
+
+  updateToolbar() {
+    if (!this.toolbarStepsEl) return;
+    const dots = this.toolbarStepsEl.querySelectorAll('.proto-step-dot');
+    dots.forEach((dot, i) => {
+      dot.classList.remove('active', 'completed');
+      if (i < this.currentStepIndex || this.isComplete) {
+        dot.classList.add('completed');
+      } else if (i === this.currentStepIndex && !this.isComplete) {
+        dot.classList.add('active');
+      }
+    });
+  },
+
+  // Called after render() to re-place dot if target changed
+  onRender() {
+    if (this.isComplete) return;
+    if (this.currentStepIndex >= ONBOARDING_STEPS.length) return;
+    this.removeDot();
+    requestAnimationFrame(() => this.placeDot());
+  },
+};
+
 // --- Init ---
 updateSortIcon();
 renderSlideThumbnails();
 render();
 setupSlideDropTarget();
+
+// Initialize onboarding after initial render
+onboarding.init();

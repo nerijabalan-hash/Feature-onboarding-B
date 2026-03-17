@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PowerPoint – Sorting of Assets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
   <div class="app">
@@ -259,19 +261,15 @@
         <!-- Pane Header -->
         <div class="pane-header">
           <div class="pane-header-top">
-            <span class="pane-title">Content Library</span>
+            <span class="pane-title">Templafy</span>
             <div class="pane-header-right">
-              <svg viewBox="0 0 12 12" width="10" height="10"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-              <button class="pane-close" title="Close">
-                <svg viewBox="0 0 12 12" width="11" height="11"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </button>
             </div>
           </div>
 
           <div class="browse-header">
-            <h2 class="browse-title">Slides & assets</h2>
+            <h2 class="browse-title" id="browseTitle">Slides & assets</h2>
             <div class="browse-actions">
-              <button class="icon-btn-sm" title="Favorites">
+              <button class="icon-btn-sm" id="favoritesNavBtn" title="Favorites">
                 <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </button>
               <div class="browse-divider"></div>
@@ -285,7 +283,12 @@
             </div>
             <!-- Sort Dropdown -->
             <div class="sort-dropdown" id="sortDropdown">
-              <button class="sort-option active" data-sort="name-asc">
+              <button class="sort-option" data-sort="relevant">
+                <svg class="sort-check" viewBox="0 0 12 12" width="12" height="12"><path d="M2 6.5L4.5 9L10 3" stroke="#464646" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+                <svg class="sort-icon" viewBox="0 0 12 12" width="13" height="12"><g clip-path="url(#clip_rel)"><path d="M2.65 0H4.05V8.85L5.75 7.15L6.7 8.1L3.35 11.45L0 8.1L0.95 7.15L2.65 8.85V0ZM6.7 0H8.3V0.7H7.8V8H7.2V0.7H6.7V0ZM8.55 0H10.15V8H8.55V0ZM9.05 0.6V7.4H9.65V0.6H9.05ZM10.4 0H12V4H10.9V8H10.4V0ZM10.9 0.6V3.4H11.5V0.6H10.9Z" fill="#464646"/></g><defs><clipPath id="clip_rel"><rect width="12" height="12" fill="white"/></clipPath></defs></svg>
+                <span class="sort-label">Most used</span>
+              </button>
+              <button class="sort-option" data-sort="name-asc">
                 <svg class="sort-check" viewBox="0 0 12 12" width="12" height="12"><path d="M2 6.5L4.5 9L10 3" stroke="#464646" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                 <svg class="sort-icon" viewBox="0 0 13 12" width="13" height="12"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text></svg>
                 <span class="sort-label">Name A–Z</span>
@@ -295,15 +298,15 @@
                 <svg class="sort-icon" viewBox="0 0 13 12" width="13" height="12"><path d="M1.5 11V1M1.5 1L0 2.5M1.5 1L3 2.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text></svg>
                 <span class="sort-label">Name Z–A</span>
               </button>
-              <button class="sort-option" data-sort="date-desc">
+              <button class="sort-option active" data-sort="date-desc">
                 <svg class="sort-check" viewBox="0 0 12 12" width="12" height="12"><path d="M2 6.5L4.5 9L10 3" stroke="#464646" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                 <svg class="sort-icon" viewBox="0 0 12 12" width="12" height="12"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5.5 3h6M5.5 6h4.5M5.5 9h3" stroke="#464646" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
-                <span class="sort-label">Last modified: Newest</span>
+                <span class="sort-label">Newest</span>
               </button>
               <button class="sort-option" data-sort="date-asc">
                 <svg class="sort-check" viewBox="0 0 12 12" width="12" height="12"><path d="M2 6.5L4.5 9L10 3" stroke="#464646" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
                 <svg class="sort-icon" viewBox="0 0 12 12" width="12" height="12"><path d="M1.5 11V1M1.5 1L0 2.5M1.5 1L3 2.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5.5 3h3M5.5 6h4.5M5.5 9h6" stroke="#464646" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
-                <span class="sort-label">Last modified: Oldest</span>
+                <span class="sort-label">Oldest</span>
               </button>
             </div>
           </div>
@@ -340,6 +343,16 @@
           </div>
         </div>
 
+        <!-- Breadcrumb Bar (visible when inside a folder) -->
+        <div class="breadcrumb-bar" id="breadcrumbBar" style="display: none;">
+          <button class="breadcrumb-back-btn" id="breadcrumbBack" title="Go back">
+            <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="breadcrumb-path" id="breadcrumbPath">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
         <!-- Asset Content -->
         <div class="asset-list" id="assetList">
           <!-- Populated by JS -->
@@ -347,41 +360,39 @@
 
       </div>
 
-      <!-- AI Popover -->
-      <div class="ai-popover" id="aiPopover">
-        <div class="ai-popover-arrow"></div>
-        <p class="ai-prompt">What should your new <span class="ai-highlight">slide</span> <span class="ai-highlight">be</span> about?</p>
-        <button class="btn-create-ai">
-          <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 2l1.5 3.5L13 7l-3.5 1.5L8 12l-1.5-3.5L3 7l3.5-1.5z" fill="currentColor"/></svg>
-          Create with AI
+      <!-- ===== Right Icon Rail (always visible) ===== -->
+      <div class="task-pane-collapsed" id="taskPaneCollapsed">
+        <button class="collapsed-btn" id="expandPaneBtn" title="Expand">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M15.621 12L12.086 8.464L13.5 7.05L18.45 12L13.5 16.95L12.086 15.535L15.621 12Z" fill="#464646"/><path d="M9.621 12L6.086 8.464L7.5 7.05L12.45 12L7.5 16.95L6.086 15.535L9.621 12Z" fill="#464646"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Content Library">
+          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="1" y="2" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M9 4h2M9 6h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="1" y="9" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M9 11h2M9 13h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Filter">
+          <svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <div class="collapsed-divider"></div>
+        <button class="collapsed-btn" title="Visuals">
+          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="1" y="2" width="14" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="6" r="1.5" fill="currentColor" opacity=".5"/><path d="M1 11l4-4 3 3 2-2 5 5H1z" fill="currentColor" opacity=".25"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Slide elements">
+          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="1" y="1" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Templates">
+          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="2" y="1" width="12" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Shared">
+          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <div class="collapsed-spacer"></div>
+        <button class="collapsed-btn collapsed-btn-accent" title="Download">
+          <svg viewBox="0 0 16 16" width="15" height="15"><path d="M8 2v8M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" fill="none"/></svg>
+        </button>
+        <button class="collapsed-btn" title="Help">
+          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 6.5a2 2 0 113 1.7c-.5.4-1 .8-1 1.3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/><circle cx="8" cy="12" r=".7" fill="currentColor"/></svg>
         </button>
       </div>
 
-      <!-- Right Icon Rail -->
-      <div class="icon-rail">
-        <button class="rail-btn" title="Info">
-          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 7v4M8 5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-        <button class="rail-btn active" title="Content Library">
-          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="2" y="2" width="12" height="12" rx="2" fill="#e74c2f"/><text x="8" y="11.5" text-anchor="middle" fill="#fff" font-size="8" font-weight="700" font-family="Segoe UI">C</text></svg>
-        </button>
-        <button class="rail-btn" title="Add-ins">
-          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="2" y="2" width="5.5" height="5.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.1"/><rect x="8.5" y="2" width="5.5" height="5.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.1"/><rect x="2" y="8.5" width="5.5" height="5.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.1"/><rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-        </button>
-        <button class="rail-btn" title="Forms">
-          <svg viewBox="0 0 16 16" width="15" height="15"><rect x="2" y="1" width="12" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
-        </button>
-        <div class="rail-spacer"></div>
-        <button class="rail-btn" title="People">
-          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="5" r="3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-        </button>
-        <button class="rail-btn" id="aiRailBtn" title="Create with AI">
-          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 4v8M4 8h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </button>
-        <button class="rail-btn" title="More">
-          <svg viewBox="0 0 16 16" width="15" height="15"><circle cx="8" cy="3" r="1.3" fill="currentColor"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/><circle cx="8" cy="13" r="1.3" fill="currentColor"/></svg>
-        </button>
-      </div>
     </div>
 
     <!-- ===== Status Bar ===== -->
@@ -422,6 +433,41 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- Prototype control bar (for testing/demo only) -->
+  <div class="proto-toolbar" id="protoToolbar">
+    <span class="proto-toolbar-label">Prototype</span>
+    <div class="proto-toolbar-steps" id="protoToolbarSteps"></div>
+    <div class="proto-toolbar-divider"></div>
+    <div class="proto-version-switcher">
+      <button class="proto-version-btn active" data-version="A" title="Dot + popover with icon &amp; headline">A</button>
+      <button class="proto-version-btn" data-version="B" title="Dot + step counter + action text">B</button>
+      <button class="proto-version-btn" data-version="C" title="Beacon dot + frosted glass pill">C</button>
+      <button class="proto-version-btn" data-version="D" title="Snake outline ring">D</button>
+    </div>
+    <div class="proto-toolbar-divider"></div>
+    <button class="proto-toolbar-btn" id="protoResetBtn" title="Reset onboarding">
+      <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M2 8a6 6 0 0110.89-3.48" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M14 8a6 6 0 01-10.89 3.48" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M13 2v3h-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v-3h3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Reset
+    </button>
+    <button class="proto-toolbar-btn" id="protoSkipBtn" title="Skip step">
+      Skip
+      <svg viewBox="0 0 16 16" width="12" height="12" fill="none"><path d="M5 3l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Onboarding popover (reusable, repositioned via JS) -->
+  <div class="onboarding-popover" id="onboardingPopover">
+    <div class="onboarding-popover-step" id="onboardingPopoverStep">
+      <span class="onboarding-popover-step-counter" id="onboardingPopoverStepCounter"></span>
+      <div class="onboarding-popover-step-dots" id="onboardingPopoverStepDots"></div>
+    </div>
+    <div class="onboarding-popover-header">
+      <div class="onboarding-popover-icon" id="onboardingPopoverIcon"></div>
+      <span class="onboarding-popover-title" id="onboardingPopoverTitle"></span>
+    </div>
+    <p class="onboarding-popover-text" id="onboardingPopoverText"></p>
   </div>
 
   <script src="app.js"></script>
