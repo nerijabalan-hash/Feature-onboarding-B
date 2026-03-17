@@ -247,8 +247,8 @@ function renderFavoritesView() {
     assetList.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-icon">
-          <svg viewBox="0 0 16 16" width="32" height="32" fill="none">
-            <path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="#ccc" stroke-width="1" stroke-linejoin="round" fill="none"/>
+          <svg viewBox="0 0 12 12" width="32" height="32" fill="none">
+            <path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="#ccc"/>
           </svg>
         </div>
         <div class="empty-state-text">No favorites yet</div>
@@ -282,12 +282,12 @@ function renderFavoriteCard(asset) {
         <rect x="12" y="72" width="80" height="4" rx="2" fill="#ddd" opacity=".2"/>
       </svg>
       <div class="fav-star-badge">
-        <svg viewBox="0 0 16 16" width="14" height="14"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="#b8860b" stroke-width="1" stroke-linejoin="round" fill="#daa520"/></svg>
+        <svg viewBox="0 0 12 12" width="14" height="14" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25Z" fill="#daa520"/></svg>
       </div>
     </div>
     <div class="asset-card-actions">
       <button class="asset-card-action-btn favorited" title="Remove from favorites" data-action="favorite">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="currentColor"/></svg>
+        <svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25Z" fill="currentColor"/></svg>
       </button>
       <button class="asset-card-action-btn" title="Comment" data-action="flag">
         <svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
@@ -531,8 +531,9 @@ function folderThumbSvg() {
 }
 
 function folderSvg() {
-  return `<svg viewBox="0 0 20 20" fill="none">
-    <path d="M2 5a2 2 0 012-2h3.172a2 2 0 011.414.586l1.828 1.828A2 2 0 0011.828 6H16a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" fill="#c0c0c0" stroke="#a8a8a8" stroke-width=".5"/>
+  return `<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M14 3C15.1046 3 16 3.89543 16 5L16 12C16 13.1046 15.1046 14 14 14L2 14C0.895431 14 0 13.1046 0 12V3L14 3Z" fill="#898989"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.92702 1C6.40448 1 6.86619 1.17081 7.22869 1.48156L9 3L1.44391e-08 3C1.44391e-08 1.89543 0.89543 1 2 1L5.92702 1Z" fill="#464646"/>
   </svg>`;
 }
 
@@ -591,7 +592,7 @@ function renderAssetCard(asset) {
     </div>
     <div class="asset-card-actions">
       <button class="asset-card-action-btn" title="Add to favorites" data-action="favorite">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/></svg>
+        <svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="#464646"/></svg>
       </button>
       <button class="asset-card-action-btn" title="Comment" data-action="flag">
         <svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
@@ -606,19 +607,25 @@ function renderAssetCard(asset) {
   // Pre-fill if already favorited
   if (favoritedIds.has(asset.id)) {
     favBtn.classList.add('favorited');
-    favBtn.querySelector('path').setAttribute('fill', 'currentColor');
+    const star = favBtn.querySelector('path');
+    star.setAttribute('d', 'M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25Z');
+    star.setAttribute('fill', 'currentColor');
     actionsContainer.classList.add('has-favorited');
   }
+  const FAV_STAR_FILLED = 'M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25Z';
+  const FAV_STAR_OUTLINE = FAV_STAR_FILLED + 'M5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z';
   favBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     favBtn.classList.toggle('favorited');
     const star = favBtn.querySelector('path');
     if (favBtn.classList.contains('favorited')) {
+      star.setAttribute('d', FAV_STAR_FILLED);
       star.setAttribute('fill', 'currentColor');
       actionsContainer.classList.add('has-favorited');
       favoritedIds.add(asset.id);
     } else {
-      star.setAttribute('fill', 'none');
+      star.setAttribute('d', FAV_STAR_OUTLINE);
+      star.setAttribute('fill', '#464646');
       actionsContainer.classList.remove('has-favorited');
       favoritedIds.delete(asset.id);
     }
@@ -1009,17 +1016,36 @@ function updateStatusBar(activeSlideNum) {
 
 // --- Collapse / Expand Task Pane ---
 const expandPaneBtn = document.getElementById('expandPaneBtn');
+const expandPaneChevron = document.getElementById('expandPaneChevron');
 
-expandPaneBtn.addEventListener('click', () => {
+function toggleTaskPane() {
   const isVisible = taskPane.style.display !== 'none';
   taskPane.style.display = isVisible ? 'none' : 'flex';
-});
+}
+
+expandPaneBtn.addEventListener('click', toggleTaskPane);
+expandPaneChevron.addEventListener('click', toggleTaskPane);
 
 // =============================================
 // Onboarding: Sequential Pulsating Dot System
 // =============================================
 
 const ONBOARDING_STEPS = [
+  {
+    id: 'library',
+    version: 1,
+    targetSelector: '#collapsedFilterBtn',
+    popoverTitle: 'Content Library',
+    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 4h2M9 6h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="1" y="9" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 11h2M9 13h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
+    popoverText: 'Open the content library to browse slides and assets',
+    popoverTextB: 'Start here — open the library to explore your slides and assets',
+    popoverTextD: 'Let\'s go! Open the content library to get started',
+    highlightTarget: true,
+    noPopover: true,
+    requiresCollapsed: true,
+    completionEvent: 'library-opened',
+    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>',
+  },
   {
     id: 'sort',
     version: 1,
@@ -1039,26 +1065,26 @@ const ONBOARDING_STEPS = [
     targetSelector: '.asset-card-thumb',
     dotOffset: { top: 4, right: 4 },
     popoverTitle: 'Favorites',
-    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>',
+    popoverIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
     popoverText: 'Add slides to your favorites for quick access',
     popoverTextB: 'Tap the star to save this slide to your favorites',
     popoverTextD: 'Love this slide? Star it to keep it close!',
     popoverPosition: 'above',
     completionEvent: 'favorite-used',
-    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+    stepIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
   },
   {
     id: 'favorites-nav',
     version: 1,
     targetSelector: '#favoritesNavBtn',
     popoverTitle: 'Favorites',
-    popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>',
+    popoverIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
     popoverText: 'Your favorites are saved here for quick access',
     popoverTextB: 'Find all your saved favorites here',
     popoverTextD: 'All your starred slides live right here — tap to see them!',
     highlightTarget: true,
     completionEvent: 'favorites-nav-used',
-    stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l2 4 4.5.6-3.2 3.2.8 4.5L8 11.8 3.9 13.8l.8-4.5L1.5 6.1 6 5.5z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" fill="currentColor"/></svg>',
+    stepIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
   },
   {
     id: 'flag',
@@ -1148,6 +1174,16 @@ const onboarding = {
       return;
     }
 
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+
+    // Collapse/expand task pane based on step requirement
+    const taskPane = document.getElementById('taskPane');
+    if (step.requiresCollapsed) {
+      taskPane.style.display = 'none';
+    } else if (taskPane.style.display === 'none') {
+      taskPane.style.display = 'flex';
+    }
+
     this.hidePopover();
     this.removeDot();
 
@@ -1183,6 +1219,11 @@ const onboarding = {
     if (this.currentVersion === 'D' && this.dRingEl) {
       document.body.appendChild(this.dRingEl);
       this.positionDRing(target);
+    }
+    // Version E: append halo glow
+    if (this.currentVersion === 'E' && this.eHaloEl) {
+      document.body.appendChild(this.eHaloEl);
+      this.positionEHalo(target);
     }
 
     this._positionDotOnTarget(target, step.dotOffset);
@@ -1276,6 +1317,10 @@ const onboarding = {
         if (this.currentVersion === 'D') {
           this.positionDRing(el);
         }
+        // Version E: also reposition halo glow
+        if (this.currentVersion === 'E') {
+          this.positionEHalo(el);
+        }
       }
       this.positionRAF = requestAnimationFrame(loop);
     };
@@ -1296,6 +1341,7 @@ const onboarding = {
     if (this.ringEl && this.ringEl.parentNode) this.ringEl.parentNode.removeChild(this.ringEl);
     if (this.ring2El && this.ring2El.parentNode) this.ring2El.parentNode.removeChild(this.ring2El);
     if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.parentNode.removeChild(this.dRingEl);
+    if (this.eHaloEl && this.eHaloEl.parentNode) this.eHaloEl.parentNode.removeChild(this.eHaloEl);
 
     // Remove hover listeners from previous target
     if (this._currentTarget) {
@@ -1325,7 +1371,7 @@ const onboarding = {
 
   showPopover() {
     const step = ONBOARDING_STEPS[this.currentStepIndex];
-    if (!step) return;
+    if (!step || step.noPopover) return;
 
     document.getElementById('onboardingPopoverIcon').innerHTML = step.popoverIcon;
     document.getElementById('onboardingPopoverTitle').textContent = step.popoverTitle;
@@ -1341,13 +1387,7 @@ const onboarding = {
       const total = ONBOARDING_STEPS.length;
       const current = this.currentStepIndex + 1;
       counterEl.textContent = current + ' of ' + total;
-      if (this.currentVersion === 'B') {
-        // Version B: micro step icons instead of generic dots
-        dotsEl.innerHTML = ONBOARDING_STEPS.map((s, i) => {
-          const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
-          return '<div class="onboarding-popover-step-icon ' + cls + '">' + (s.stepIcon || '') + '</div>';
-        }).join('');
-      } else {
+      {
         dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
           const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
           return '<div class="onboarding-popover-step-dot ' + cls + '"></div>';
@@ -1355,12 +1395,21 @@ const onboarding = {
       }
     }
 
+    // Render round dots row for versions that use it
+    const dotsRowEl = document.getElementById('onboardingPopoverDotsRow');
+    if (dotsRowEl) {
+      dotsRowEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
+        const cls = i === this.currentStepIndex ? 'active' : '';
+        return '<div class="dot ' + cls + '"></div>';
+      }).join('');
+    }
+
     this.popoverEl.style.position = 'fixed';
 
     // Always position popover below the target element so it doesn't cover the action button
-    const refEl = (this.currentVersion === 'D' && this._currentTarget) ? this._currentTarget : this.dotEl;
+    const refEl = ((this.currentVersion === 'D' || this.currentVersion === 'E') && this._currentTarget) ? this._currentTarget : this.dotEl;
     const refRect = refEl.getBoundingClientRect();
-    const gap = this.currentVersion === 'D' ? 12 : this.currentVersion === 'A' ? 8 : 6;
+    const gap = this.currentVersion === 'D' ? 12 : this.currentVersion === 'E' ? 8 : this.currentVersion === 'A' ? 8 : 6;
     // Use the actual target element rect to find the bottom edge
     const targetEl = this._currentTarget || this.dotEl;
     const targetRect = targetEl.getBoundingClientRect();
@@ -1389,11 +1438,12 @@ const onboarding = {
 
   applyVersion() {
     if (!this.popoverEl) return;
-    this.popoverEl.classList.remove('version-A', 'version-B', 'version-C', 'version-D');
+    this.popoverEl.classList.remove('version-A', 'version-B', 'version-C', 'version-D', 'version-E');
     this.popoverEl.classList.add('version-' + this.currentVersion);
     // Version C beacon dot style
     document.body.classList.toggle('version-C-dot', this.currentVersion === 'C');
     document.body.classList.toggle('version-D-dot', this.currentVersion === 'D');
+    document.body.classList.toggle('version-E-dot', this.currentVersion === 'E');
     // Manage extra ripple ring for version C
     if (this.currentVersion === 'C') {
       if (!this.ring2El) {
@@ -1411,6 +1461,16 @@ const onboarding = {
     }
     if (this.currentVersion !== 'D') {
       if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.remove();
+    }
+    // Version E: halo glow element
+    if (this.currentVersion === 'E') {
+      if (!this.eHaloEl) {
+        this.eHaloEl = document.createElement('div');
+        this.eHaloEl.className = 'onboarding-e-halo';
+      }
+    }
+    if (this.currentVersion !== 'E') {
+      if (this.eHaloEl && this.eHaloEl.parentNode) this.eHaloEl.remove();
     }
   },
 
@@ -1452,6 +1512,45 @@ const onboarding = {
     }
   },
 
+  // --- Version E helpers ---
+  positionEHalo(target) {
+    if (!this.eHaloEl || this.currentVersion !== 'E') return;
+    // For card steps, wrap the whole card
+    const card = target.closest('.asset-card');
+    const haloTarget = card || target;
+    const rect = haloTarget.getBoundingClientRect();
+    const pad = 4;
+    this.eHaloEl.style.left = (rect.left - pad) + 'px';
+    this.eHaloEl.style.top = (rect.top - pad) + 'px';
+    this.eHaloEl.style.width = (rect.width + pad * 2) + 'px';
+    this.eHaloEl.style.height = (rect.height + pad * 2) + 'px';
+    // Match border-radius to target (buttons get 4px, cards get 6px)
+    this.eHaloEl.style.borderRadius = card ? '6px' : '4px';
+
+    // Clip halo so it doesn't overlap navigation/toolbar (only for card-targeting steps)
+    const step = ONBOARDING_STEPS[this.currentStepIndex];
+    const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
+    if (isCardStep) {
+      const assetList = document.getElementById('assetList');
+      if (assetList) {
+        const listRect = assetList.getBoundingClientRect();
+        const haloTop = rect.top - pad;
+        const haloHeight = rect.height + pad * 2;
+        if (haloTop < listRect.top) {
+          const clipTop = listRect.top - haloTop;
+          this.eHaloEl.style.clipPath = `inset(${clipTop}px 0 0 0)`;
+        } else if (haloTop + haloHeight > listRect.bottom) {
+          const clipBottom = (haloTop + haloHeight) - listRect.bottom;
+          this.eHaloEl.style.clipPath = `inset(0 0 ${clipBottom}px 0)`;
+        } else {
+          this.eHaloEl.style.clipPath = '';
+        }
+      }
+    } else {
+      this.eHaloEl.style.clipPath = '';
+    }
+  },
+
 
 
   completeStep(eventName) {
@@ -1490,7 +1589,14 @@ const onboarding = {
   },
 
   listenForCompletions() {
-    // Step 1: Sort — complete when user clicks the sort button (opens dropdown)
+    // Library — complete when user clicks the collapsed library button
+    document.getElementById('collapsedFilterBtn').addEventListener('click', () => {
+      // Expand the task pane
+      document.getElementById('taskPane').style.display = 'flex';
+      this.completeStep('library-opened');
+    });
+
+    // Sort — complete when user clicks the sort button (opens dropdown)
     document.getElementById('sortBtn').addEventListener('click', () => {
       this.completeStep('sort-used');
     });
