@@ -132,12 +132,18 @@ const MOCK_DATA = {
 
 // Slide thumbnails data
 const SLIDES = [
-  { num: 1, title: 'Product Initiatives', sub: 'Strategic roadmap and priorities', hasLogo: true },
-  { num: 2, title: 'Product roadmap', sub: 'Key milestones and timeline', hasChart: false },
-  { num: 3, title: 'Feature highlights', sub: 'What we are building', hasChart: false },
-  { num: 4, title: 'Market demands', sub: 'Customer needs and trends', hasChart: true },
-  { num: 5, title: 'Competitive landscape', sub: 'Positioning and differentiation', hasChart: true },
-  { num: 6, title: 'Industry overview', sub: 'Market context and opportunity', hasChart: true },
+  { num: 1, title: 'Product Initiatives', sub: 'Q2 2026 Strategic Roadmap', layout: 'cover' },
+  { num: 2, title: 'Agenda', sub: '', layout: 'agenda' },
+  { num: 3, title: 'Company at a Glance', sub: 'Key metrics & growth', layout: 'metrics' },
+  { num: 4, title: 'Revenue Performance', sub: 'Q1 results vs. targets', layout: 'chart' },
+  { num: 5, title: 'Strategic Priorities', sub: 'Focus areas for Q2', layout: 'two-col' },
+  { num: 6, title: 'Go-to-Market Plan', sub: 'Expansion & partnerships', layout: 'content' },
+  { num: 7, title: 'Customer Segments', sub: 'Target verticals', layout: 'three-col' },
+  { num: 8, title: 'Product Roadmap', sub: 'H1 delivery milestones', layout: 'timeline' },
+  { num: 9, title: 'Team & Resources', sub: 'Headcount & allocation', layout: 'metrics2' },
+  { num: 10, title: 'Risk Assessment', sub: 'Key risks & mitigations', layout: 'table' },
+  { num: 11, title: 'Financial Outlook', sub: 'FY2026 projections', layout: 'chart2' },
+  { num: 12, title: 'Next Steps', sub: 'Action items & owners', layout: 'content2' },
 ];
 
 // --- State ---
@@ -399,6 +405,181 @@ function createBreadcrumbSep() {
 }
 
 // --- Generate slide thumbnails ---
+function getSlideThumbHTML(slide) {
+  switch (slide.layout) {
+    case 'cover':
+      return `
+        <div class="slide-thumb-content slide-thumb--cover">
+          <div class="st-cover-stripe"></div>
+          <div class="st-cover-body">
+            <div class="st-cover-logo">templafy</div>
+            <div class="mini-title st-cover-title">${slide.title}</div>
+            <div class="mini-sub">${slide.sub}</div>
+            <div class="st-cover-date">March 2026 &middot; Confidential</div>
+          </div>
+        </div>`;
+    case 'agenda':
+      return `
+        <div class="slide-thumb-content slide-thumb--agenda">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-agenda-list">
+            <div class="st-agenda-item"><span class="st-agenda-num">01</span><span class="st-agenda-text">Company at a Glance</span></div>
+            <div class="st-agenda-item"><span class="st-agenda-num">02</span><span class="st-agenda-text">Revenue Performance</span></div>
+            <div class="st-agenda-item"><span class="st-agenda-num">03</span><span class="st-agenda-text">Strategic Priorities</span></div>
+            <div class="st-agenda-item"><span class="st-agenda-num">04</span><span class="st-agenda-text">Go-to-Market Plan</span></div>
+          </div>
+        </div>`;
+    case 'metrics':
+      return `
+        <div class="slide-thumb-content slide-thumb--metrics">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-metrics-grid">
+            <div class="st-metric"><div class="st-metric-val">$4.2M</div><div class="st-metric-label">ARR</div></div>
+            <div class="st-metric"><div class="st-metric-val">142%</div><div class="st-metric-label">YoY Growth</div></div>
+            <div class="st-metric"><div class="st-metric-val">1,280</div><div class="st-metric-label">Customers</div></div>
+            <div class="st-metric"><div class="st-metric-val">96%</div><div class="st-metric-label">Retention</div></div>
+          </div>
+        </div>`;
+    case 'two-col':
+      return `
+        <div class="slide-thumb-content slide-thumb--twocol">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-twocol-row">
+            <div class="st-twocol-box">
+              <div class="st-box-title">Product-Led Growth</div>
+              <div class="st-box-line"></div>
+              <div class="st-box-line short"></div>
+            </div>
+            <div class="st-twocol-box">
+              <div class="st-box-title">Enterprise Sales</div>
+              <div class="st-box-line"></div>
+              <div class="st-box-line short"></div>
+            </div>
+          </div>
+        </div>`;
+    case 'chart':
+      return `
+        <div class="slide-thumb-content slide-thumb--chart">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-chart-area">
+            <div class="st-bar" style="height:35%"></div>
+            <div class="st-bar" style="height:48%"></div>
+            <div class="st-bar" style="height:55%"></div>
+            <div class="st-bar" style="height:72%"></div>
+            <div class="st-bar st-bar-highlight" style="height:90%"></div>
+          </div>
+          <div class="st-chart-labels">
+            <span>Q1</span><span>Q2</span><span>Q3</span><span>Q4</span><span>Q1</span>
+          </div>
+        </div>`;
+    case 'three-col':
+      return `
+        <div class="slide-thumb-content slide-thumb--threecol">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-threecol-row">
+            <div class="st-threecol-box">
+              <div class="st-threecol-icon">&#9670;</div>
+              <div class="st-box-title">Enterprise</div>
+              <div class="st-box-line"></div>
+            </div>
+            <div class="st-threecol-box">
+              <div class="st-threecol-icon">&#9679;</div>
+              <div class="st-box-title">Mid-Market</div>
+              <div class="st-box-line"></div>
+            </div>
+            <div class="st-threecol-box">
+              <div class="st-threecol-icon">&#9650;</div>
+              <div class="st-box-title">SMB</div>
+              <div class="st-box-line"></div>
+            </div>
+          </div>
+        </div>`;
+    case 'timeline':
+      return `
+        <div class="slide-thumb-content slide-thumb--timeline">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-timeline">
+            <div class="st-tl-track"></div>
+            <div class="st-tl-item" style="left:5%"><div class="st-tl-dot"></div><div class="st-tl-label">Apr</div></div>
+            <div class="st-tl-item" style="left:30%"><div class="st-tl-dot"></div><div class="st-tl-label">May</div></div>
+            <div class="st-tl-item" style="left:55%"><div class="st-tl-dot"></div><div class="st-tl-label">Jun</div></div>
+            <div class="st-tl-item" style="left:80%"><div class="st-tl-dot"></div><div class="st-tl-label">Jul</div></div>
+          </div>
+        </div>`;
+    case 'metrics2':
+      return `
+        <div class="slide-thumb-content slide-thumb--metrics">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-metrics-grid">
+            <div class="st-metric"><div class="st-metric-val">48</div><div class="st-metric-label">Engineers</div></div>
+            <div class="st-metric"><div class="st-metric-val">12</div><div class="st-metric-label">Designers</div></div>
+            <div class="st-metric"><div class="st-metric-val">24</div><div class="st-metric-label">Sales</div></div>
+            <div class="st-metric"><div class="st-metric-val">8</div><div class="st-metric-label">Ops</div></div>
+          </div>
+        </div>`;
+    case 'table':
+      return `
+        <div class="slide-thumb-content slide-thumb--table">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-table">
+            <div class="st-table-header">
+              <span>Risk</span><span>Impact</span><span>Status</span>
+            </div>
+            <div class="st-table-row"><span class="st-line w70"></span><span class="st-tag red"></span><span class="st-tag yellow"></span></div>
+            <div class="st-table-row"><span class="st-line w60"></span><span class="st-tag yellow"></span><span class="st-tag green"></span></div>
+            <div class="st-table-row"><span class="st-line w80"></span><span class="st-tag red"></span><span class="st-tag yellow"></span></div>
+          </div>
+        </div>`;
+    case 'chart2':
+      return `
+        <div class="slide-thumb-content slide-thumb--chart">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-chart-area st-chart-line-area">
+            <svg viewBox="0 0 120 40" preserveAspectRatio="none" class="st-line-chart">
+              <polyline points="0,35 24,28 48,22 72,15 96,10 120,3" fill="none" stroke="#3355f5" stroke-width="1.5"/>
+              <polyline points="0,36 24,33 48,30 72,26 96,22 120,18" fill="none" stroke="#aab4f0" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="st-chart-labels">
+            <span>FY23</span><span>FY24</span><span>FY25</span><span>FY26</span>
+          </div>
+        </div>`;
+    case 'content2':
+      return `
+        <div class="slide-thumb-content slide-thumb--content">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-checklist">
+            <div class="st-check-item"><span class="st-checkbox checked"></span><span class="st-line w80"></span></div>
+            <div class="st-check-item"><span class="st-checkbox"></span><span class="st-line w70"></span></div>
+            <div class="st-check-item"><span class="st-checkbox"></span><span class="st-line w90"></span></div>
+            <div class="st-check-item"><span class="st-checkbox"></span><span class="st-line w60"></span></div>
+          </div>
+        </div>`;
+    default: // 'content'
+      return `
+        <div class="slide-thumb-content slide-thumb--content">
+          <div class="st-accent-bar"></div>
+          <div class="mini-title">${slide.title}</div>
+          <div class="st-bullet-list">
+            <div class="st-bullet"><span class="st-dot"></span><span class="st-line w90"></span></div>
+            <div class="st-bullet"><span class="st-dot"></span><span class="st-line w70"></span></div>
+            <div class="st-bullet"><span class="st-dot"></span><span class="st-line w80"></span></div>
+            <div class="st-bullet"><span class="st-dot"></span><span class="st-line w60"></span></div>
+          </div>
+        </div>`;
+  }
+}
+
 function renderSlideThumbnails() {
   const container = document.getElementById('slideThumbnails');
   container.innerHTML = '';
@@ -409,11 +590,7 @@ function renderSlideThumbnails() {
     wrapper.innerHTML = `
       <span class="slide-num">${slide.num}</span>
       <div class="slide-thumb">
-        <div class="slide-thumb-content">
-          <div class="mini-title">${slide.title}</div>
-          <div class="mini-sub">${slide.sub}</div>
-          <div class="slide-thumb-deco"></div>
-        </div>
+        ${getSlideThumbHTML(slide)}
       </div>
     `;
     wrapper.addEventListener('click', () => {
@@ -426,11 +603,11 @@ function renderSlideThumbnails() {
 
 // --- Sort Icon SVGs ---
 const SORT_ICONS = {
-  'relevant': `<svg viewBox="0 0 12 12" width="14" height="13"><g clip-path="url(#clip_btn_rel)"><path d="M2.65 0H4.05V8.85L5.75 7.15L6.7 8.1L3.35 11.45L0 8.1L0.95 7.15L2.65 8.85V0ZM6.7 0H8.3V0.7H7.8V8H7.2V0.7H6.7V0ZM8.55 0H10.15V8H8.55V0ZM9.05 0.6V7.4H9.65V0.6H9.05ZM10.4 0H12V4H10.9V8H10.4V0ZM10.9 0.6V3.4H11.5V0.6H10.9Z" fill="#464646"/></g><defs><clipPath id="clip_btn_rel"><rect width="12" height="12" fill="white"/></clipPath></defs></svg>`,
-  'name-asc': `<svg viewBox="0 0 13 12" width="14" height="13"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text></svg>`,
-  'name-desc': `<svg viewBox="0 0 13 12" width="14" height="13"><path d="M1.5 11V1M1.5 1L0 2.5M1.5 1L3 2.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><text x="6" y="5" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">Z</text><text x="6" y="11" font-size="5.5" font-weight="700" fill="#464646" font-family="Segoe UI, sans-serif">A</text></svg>`,
-  'date-desc': `<svg viewBox="0 0 12 12" width="14" height="13"><path d="M1.5 1v10M1.5 11L0 9.5M1.5 11L3 9.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5.5 3h6M5.5 6h4.5M5.5 9h3" stroke="#464646" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>`,
-  'date-asc': `<svg viewBox="0 0 12 12" width="14" height="13"><path d="M1.5 11V1M1.5 1L0 2.5M1.5 1L3 2.5" stroke="#464646" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5.5 3h3M5.5 6h4.5M5.5 9h6" stroke="#464646" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>`,
+  'relevant': `<svg viewBox="-0.25 0 12.55 11.5" width="16" height="14" fill="none"><path d="M2.4 0H3.8V8.85L5.5 7.15L6.45 8.1L3.1 11.45L-0.25 8.1L0.7 7.15L2.4 8.85V0ZM7 3H8.5V11.5H7V3ZM8.9 6H10.4V11.5H8.9V6ZM10.8 9H12.3V11.5H10.8V9Z" fill="#464646"/></svg>`,
+  'name-asc': `<svg viewBox="-0.25 0 12.3 11.45" width="16" height="14" fill="none"><path d="M2.4 0H3.8V8.85L5.5 7.15L6.45 8.1L3.1 11.45L-0.25 8.1L0.7 7.15L2.4 8.85V0ZM9.3 0L7.15 4.7H8.25L8.65 3.7H10.55L10.95 4.7H12.05L9.9 0H9.3ZM9 2.85L9.6 1.35L10.2 2.85H9ZM7.35 6.75H11.35V7.85L8.45 10.45H11.35V11.45H7.25V10.35L10.15 7.75H7.35V6.75Z" fill="#464646"/></svg>`,
+  'name-desc': `<svg viewBox="-0.25 0.55 12.3 11.45" width="16" height="14" fill="none"><path d="M2.4 12H3.8V3.15L5.5 4.85L6.45 3.9L3.1 0.55L-0.25 3.9L0.7 4.85L2.4 3.15V12ZM7.35 0.55H11.35V1.65L8.45 4.25H11.35V5.25H7.25V4.15L10.15 1.55H7.35V0.55ZM9.3 7.3L7.15 12H8.25L8.65 11H10.55L10.95 12H12.05L9.9 7.3H9.3ZM9 10.15L9.6 8.65L10.2 10.15H9Z" fill="#464646"/></svg>`,
+  'date-desc': `<svg viewBox="-0.25 0 11.8 11.45" width="16" height="14" fill="none"><path d="M2.4 0H3.8V8.85L5.5 7.15L6.45 8.1L3.1 11.45L-0.25 8.1L0.7 7.15L2.4 8.85V0ZM7.05 0H11.55V1.2H7.05V0ZM7.05 2.5H10.55V3.7H7.05V2.5ZM7.05 5H9.85V6.2H7.05V5ZM7.05 7.5H9.05V8.7H7.05V7.5Z" fill="#464646"/></svg>`,
+  'date-asc': `<svg viewBox="-0.25 0.55 11.8 11.45" width="16" height="14" fill="none"><path d="M2.4 12H3.8V3.15L5.5 4.85L6.45 3.9L3.1 0.55L-0.25 3.9L0.7 4.85L2.4 3.15V12ZM7.05 3.3H9.05V4.5H7.05V3.3ZM7.05 5.8H9.85V7H7.05V5.8ZM7.05 8.3H10.55V9.5H7.05V8.3ZM7.05 10.8H11.55V12H7.05V10.8Z" fill="#464646"/></svg>`,
 };
 
 function updateSortIcon() {
@@ -1038,8 +1215,6 @@ const ONBOARDING_STEPS = [
     popoverTitle: 'Content Library',
     popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 4h2M9 6h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><rect x="1" y="9" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 11h2M9 13h1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>',
     popoverText: 'Open the content library to browse slides and assets',
-    popoverTextB: 'Start here — open the library to explore your slides and assets',
-    popoverTextD: 'Let\'s go! Open the content library to get started',
     highlightTarget: true,
     noPopover: true,
     requiresCollapsed: true,
@@ -1053,8 +1228,6 @@ const ONBOARDING_STEPS = [
     popoverTitle: 'Sort',
     popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M4 2v12M4 14l-3-3M4 14l3-3M12 14V2M12 2l-3 3M12 2l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     popoverText: 'Sort your assets by name, date, or relevance',
-    popoverTextB: 'Try sorting your assets — tap to organize by name, date, or relevance',
-    popoverTextD: 'First up! Tap here to sort your assets by name, date, or relevance',
     highlightTarget: true,
     completionEvent: 'sort-used',
     stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M4 2v12M4 14l-3-3M4 14l3-3M12 14V2M12 2l-3 3M12 2l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -1067,8 +1240,6 @@ const ONBOARDING_STEPS = [
     popoverTitle: 'Favorites',
     popoverIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
     popoverText: 'Add slides to your favorites for quick access',
-    popoverTextB: 'Tap the star to save this slide to your favorites',
-    popoverTextD: 'Love this slide? Star it to keep it close!',
     popoverPosition: 'above',
     completionEvent: 'favorite-used',
     stepIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
@@ -1080,8 +1251,7 @@ const ONBOARDING_STEPS = [
     popoverTitle: 'Favorites',
     popoverIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
     popoverText: 'Your favorites are saved here for quick access',
-    popoverTextB: 'Find all your saved favorites here',
-    popoverTextD: 'All your starred slides live right here — tap to see them!',
+    skipVersions: ['B'],
     highlightTarget: true,
     completionEvent: 'favorites-nav-used',
     stepIcon: '<svg viewBox="0 0 12 12" fill="none"><path d="M5.99997 0.25C6.30737 0.25 6.58382 0.437921 6.69724 0.723633L7.91989 3.80273L11.0644 4.07227C11.3617 4.0979 11.6156 4.29736 11.7109 4.58008C11.8061 4.863 11.7243 5.17582 11.5029 5.37598L9.08298 7.56055L9.82224 10.835C9.88912 11.1316 9.7695 11.4396 9.52048 11.6143C9.27146 11.7887 8.94158 11.7958 8.68552 11.6318L5.99997 9.91113L3.31442 11.6318C3.05836 11.7958 2.72848 11.7887 2.47946 11.6143C2.23044 11.4396 2.11082 11.1316 2.1777 10.835L2.91696 7.56055L0.49704 5.37598C0.27563 5.17582 0.193853 4.863 0.289032 4.58008C0.384305 4.29736 0.638284 4.0979 0.935516 4.07227L4.08005 3.80273L5.3027 0.723633C5.41612 0.437921 5.69257 0.25 5.99997 0.25ZM5.13278 5.21875L2.78317 5.41992L4.57321 7.03516L4.04294 9.38379L5.99997 8.12988L7.957 9.38379L7.42673 7.03516L9.21677 5.41992L6.86716 5.21875L5.99997 3.0332L5.13278 5.21875Z" fill="currentColor"/></svg>',
@@ -1094,8 +1264,6 @@ const ONBOARDING_STEPS = [
     popoverTitle: 'Flag content',
     popoverIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.2"/></svg>',
     popoverText: 'Flag outdated content for your admin to review',
-    popoverTextB: 'See something outdated? Tap to flag it for your admin',
-    popoverTextD: 'Last one! Spot something outdated? Flag it and your admin will know',
     popoverPosition: 'above',
     completionEvent: 'flag-used',
     stepIcon: '<svg viewBox="0 0 16 16" fill="none"><path d="M2 3a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6l-3 3V11a2 2 0 01-1-1.7V3z" stroke="currentColor" stroke-width="1.3"/></svg>',
@@ -1113,7 +1281,7 @@ const onboarding = {
   popoverTextEl: null,
   isComplete: false,
   positionRAF: null,
-  currentVersion: 'A',
+  currentVersion: 'B',
 
   init() {
     this.popoverEl = document.getElementById('onboardingPopover');
@@ -1124,7 +1292,6 @@ const onboarding = {
     if (saved && saved.version >= ONBOARDING_VERSION && saved.completed) {
       this.isComplete = true;
       this.currentStepIndex = ONBOARDING_STEPS.length;
-      this.initToolbar();
       return;
     }
     if (saved && saved.stepIndex !== undefined) {
@@ -1143,9 +1310,6 @@ const onboarding = {
 
     // Listen for completion events
     this.listenForCompletions();
-
-    // Init toolbar
-    this.initToolbar();
 
     // Apply version class
     this.applyVersion();
@@ -1175,6 +1339,13 @@ const onboarding = {
     }
 
     const step = ONBOARDING_STEPS[this.currentStepIndex];
+
+    // Skip steps that are excluded for the current version
+    if (step.skipVersions && step.skipVersions.includes(this.currentVersion)) {
+      this.currentStepIndex++;
+      this.activateStep();
+      return;
+    }
 
     // Collapse/expand task pane based on step requirement
     const taskPane = document.getElementById('taskPane');
@@ -1212,24 +1383,11 @@ const onboarding = {
     this.dotEl.addEventListener('animationend', onEntranceDone);
 
     document.body.appendChild(this.dotEl);
-    if (this.currentVersion === 'C' && this.ring2El) {
-      document.body.appendChild(this.ring2El);
-    }
-    // Version D: append gradient ring
-    if (this.currentVersion === 'D' && this.dRingEl) {
-      document.body.appendChild(this.dRingEl);
-      this.positionDRing(target);
-    }
-    // Version E: append halo glow
-    if (this.currentVersion === 'E' && this.eHaloEl) {
-      document.body.appendChild(this.eHaloEl);
-      this.positionEHalo(target);
-    }
 
     this._positionDotOnTarget(target, step.dotOffset);
 
     // Show popover when hovering the dot's area or the target
-    this._targetHoverIn = () => this.showPopover();
+    this._targetHoverIn = () => { clearTimeout(this._autoHideTimeout); this.showPopover(); };
     this._targetHoverOut = () => this.hidePopover();
     target.addEventListener('mouseenter', this._targetHoverIn);
     target.addEventListener('mouseleave', this._targetHoverOut);
@@ -1254,6 +1412,18 @@ const onboarding = {
     }
 
     this._startPositionLoop(target);
+
+    // Auto-show popover briefly on first visit to each step
+    if (!step.noPopover) {
+      clearTimeout(this._autoShowTimeout);
+      clearTimeout(this._autoHideTimeout);
+      this._autoShowTimeout = setTimeout(() => {
+        this.showPopover();
+        this._autoHideTimeout = setTimeout(() => {
+          this.hidePopover();
+        }, 2000);
+      }, 600);
+    }
   },
 
   _positionDotOnTarget(target, offset) {
@@ -1279,12 +1449,6 @@ const onboarding = {
     this.ringEl.style.top = top + 'px';
     this.ringEl.style.left = left + 'px';
 
-    if (this.ring2El && this.ring2El.parentNode) {
-      this.ring2El.style.position = 'fixed';
-      this.ring2El.style.top = top + 'px';
-      this.ring2El.style.left = left + 'px';
-    }
-
     // Hide dot/rings when card-targeting steps scroll outside the asset list
     const step = ONBOARDING_STEPS[this.currentStepIndex];
     const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
@@ -1296,12 +1460,10 @@ const onboarding = {
         const vis = isOutside ? 'hidden' : 'visible';
         this.dotEl.style.visibility = vis;
         this.ringEl.style.visibility = vis;
-        if (this.ring2El && this.ring2El.parentNode) this.ring2El.style.visibility = vis;
       }
     } else {
       this.dotEl.style.visibility = 'visible';
       this.ringEl.style.visibility = 'visible';
-      if (this.ring2El && this.ring2El.parentNode) this.ring2El.style.visibility = 'visible';
     }
   },
 
@@ -1313,14 +1475,6 @@ const onboarding = {
       const el = document.querySelector(step?.targetSelector);
       if (el) {
         this._positionDotOnTarget(el, step?.dotOffset);
-        // Version D: also reposition gradient ring
-        if (this.currentVersion === 'D') {
-          this.positionDRing(el);
-        }
-        // Version E: also reposition halo glow
-        if (this.currentVersion === 'E') {
-          this.positionEHalo(el);
-        }
       }
       this.positionRAF = requestAnimationFrame(loop);
     };
@@ -1337,11 +1491,10 @@ const onboarding = {
   removeDot() {
     this._stopPositionLoop();
     if (this._retryTimeout) clearTimeout(this._retryTimeout);
+    clearTimeout(this._autoShowTimeout);
+    clearTimeout(this._autoHideTimeout);
     if (this.dotEl && this.dotEl.parentNode) this.dotEl.parentNode.removeChild(this.dotEl);
     if (this.ringEl && this.ringEl.parentNode) this.ringEl.parentNode.removeChild(this.ringEl);
-    if (this.ring2El && this.ring2El.parentNode) this.ring2El.parentNode.removeChild(this.ring2El);
-    if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.parentNode.removeChild(this.dRingEl);
-    if (this.eHaloEl && this.eHaloEl.parentNode) this.eHaloEl.parentNode.removeChild(this.eHaloEl);
 
     // Remove hover listeners from previous target
     if (this._currentTarget) {
@@ -1383,13 +1536,17 @@ const onboarding = {
     // Render step counter (visible only in Version B via CSS)
     const counterEl = document.getElementById('onboardingPopoverStepCounter');
     const dotsEl = document.getElementById('onboardingPopoverStepDots');
+    // Filter steps visible for current version
+    const visibleSteps = ONBOARDING_STEPS.filter(s => !s.skipVersions || !s.skipVersions.includes(this.currentVersion));
+    const visibleIndex = visibleSteps.indexOf(step);
+
     if (counterEl && dotsEl) {
-      const total = ONBOARDING_STEPS.length;
-      const current = this.currentStepIndex + 1;
+      const total = visibleSteps.length;
+      const current = visibleIndex + 1;
       counterEl.textContent = current + ' of ' + total;
       {
-        dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
-          const cls = i < this.currentStepIndex ? 'done' : i === this.currentStepIndex ? 'active' : '';
+        dotsEl.innerHTML = visibleSteps.map((_, i) => {
+          const cls = i < visibleIndex ? 'done' : i === visibleIndex ? 'active' : '';
           return '<div class="onboarding-popover-step-dot ' + cls + '"></div>';
         }).join('');
       }
@@ -1398,34 +1555,56 @@ const onboarding = {
     // Render round dots row for versions that use it
     const dotsRowEl = document.getElementById('onboardingPopoverDotsRow');
     if (dotsRowEl) {
-      dotsRowEl.innerHTML = ONBOARDING_STEPS.map((_, i) => {
-        const cls = i === this.currentStepIndex ? 'active' : '';
+      dotsRowEl.innerHTML = visibleSteps.map((_, i) => {
+        const cls = i === visibleIndex ? 'active' : '';
         return '<div class="dot ' + cls + '"></div>';
       }).join('');
     }
 
     this.popoverEl.style.position = 'fixed';
 
-    // Always position popover below the target element so it doesn't cover the action button
-    const refEl = ((this.currentVersion === 'D' || this.currentVersion === 'E') && this._currentTarget) ? this._currentTarget : this.dotEl;
-    const refRect = refEl.getBoundingClientRect();
-    const gap = this.currentVersion === 'D' ? 12 : this.currentVersion === 'E' ? 8 : this.currentVersion === 'A' ? 8 : 6;
-    // Use the actual target element rect to find the bottom edge
+    const refRect = this.dotEl.getBoundingClientRect();
+    const gap = 6;
     const targetEl = this._currentTarget || this.dotEl;
     const targetRect = targetEl.getBoundingClientRect();
-    this.popoverEl.style.left = (refRect.left + refRect.width / 2 - 120) + 'px';
-    this.popoverEl.style.top = (targetRect.bottom + gap) + 'px';
+    // Center popover horizontally within task pane if available, else use ref element
+    const taskPaneEl = document.getElementById('taskPane');
+    if (taskPaneEl) {
+      const tpRect = taskPaneEl.getBoundingClientRect();
+      this.popoverEl.style.left = (tpRect.left + (tpRect.width - 232) / 2) + 'px';
+    } else {
+      this.popoverEl.style.left = (refRect.left + refRect.width / 2 - 120) + 'px';
+    }
     this.popoverEl.style.transform = 'scale(1)';
 
-    // Clamp popover within task pane edges (8px padding)
+    // Position below target by default
+    this.popoverEl.style.top = (targetRect.bottom + gap) + 'px';
+    this.popoverEl.classList.remove('popover-above');
+
+    // If step requests above positioning, or popover would overflow viewport bottom, flip above
+    const popRect = this.popoverEl.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    if (step.popoverPosition === 'above' || popRect.bottom > viewportH - 8) {
+      this.popoverEl.style.top = (targetRect.top - gap - popRect.height) + 'px';
+      this.popoverEl.classList.add('popover-above');
+    }
+
+    // Clamp popover within task pane edges
     const pane = document.getElementById('taskPane');
     if (pane) {
       const paneRect = pane.getBoundingClientRect();
-      const popRect = this.popoverEl.getBoundingClientRect();
-      const pad = 24;
+      // Force reflow before reading final rect
+      this.popoverEl.offsetHeight;
+      const finalPopRect = this.popoverEl.getBoundingClientRect();
+      const padLeft = 12;
+      const padRight = 8;
       let left = parseFloat(this.popoverEl.style.left);
-      if (left < paneRect.left + pad) left = paneRect.left + pad;
-      if (left + popRect.width > paneRect.right - pad) left = paneRect.right - pad - popRect.width;
+      if (finalPopRect.left < paneRect.left + padLeft) {
+        left += (paneRect.left + padLeft) - finalPopRect.left;
+      }
+      if (finalPopRect.right > paneRect.right - padRight) {
+        left -= finalPopRect.right - (paneRect.right - padRight);
+      }
       this.popoverEl.style.left = left + 'px';
     }
 
@@ -1438,119 +1617,8 @@ const onboarding = {
 
   applyVersion() {
     if (!this.popoverEl) return;
-    this.popoverEl.classList.remove('version-A', 'version-B', 'version-C', 'version-D', 'version-E');
-    this.popoverEl.classList.add('version-' + this.currentVersion);
-    // Version C beacon dot style
-    document.body.classList.toggle('version-C-dot', this.currentVersion === 'C');
-    document.body.classList.toggle('version-D-dot', this.currentVersion === 'D');
-    document.body.classList.toggle('version-E-dot', this.currentVersion === 'E');
-    // Manage extra ripple ring for version C
-    if (this.currentVersion === 'C') {
-      if (!this.ring2El) {
-        this.ring2El = document.createElement('div');
-        this.ring2El.className = 'onboarding-ring-2';
-      }
-    }
-    // Version D: gradient ring element
-    if (this.currentVersion === 'D') {
-      if (!this.dRingEl) {
-        this.dRingEl = document.createElement('div');
-        this.dRingEl.className = 'onboarding-d-ring';
-        this.dRingEl.innerHTML = '<div class="onboarding-d-ring-inner"></div>';
-      }
-    }
-    if (this.currentVersion !== 'D') {
-      if (this.dRingEl && this.dRingEl.parentNode) this.dRingEl.remove();
-    }
-    // Version E: halo glow element
-    if (this.currentVersion === 'E') {
-      if (!this.eHaloEl) {
-        this.eHaloEl = document.createElement('div');
-        this.eHaloEl.className = 'onboarding-e-halo';
-      }
-    }
-    if (this.currentVersion !== 'E') {
-      if (this.eHaloEl && this.eHaloEl.parentNode) this.eHaloEl.remove();
-    }
+    this.popoverEl.classList.add('version-B');
   },
-
-  // --- Version D helpers ---
-  positionDRing(target) {
-    if (!this.dRingEl || this.currentVersion !== 'D') return;
-    // For card steps, wrap the whole card (thumb + title)
-    const card = target.closest('.asset-card');
-    const ringTarget = card || target;
-    const rect = ringTarget.getBoundingClientRect();
-    const pad = 4;
-    this.dRingEl.style.position = 'fixed';
-    this.dRingEl.style.left = (rect.left - pad) + 'px';
-    this.dRingEl.style.top = (rect.top - pad) + 'px';
-    this.dRingEl.style.width = (rect.width + pad * 2) + 'px';
-    this.dRingEl.style.height = (rect.height + pad * 2) + 'px';
-
-    // Clip ring so it doesn't overlap navigation/toolbar (only for card-targeting steps)
-    const step = ONBOARDING_STEPS[this.currentStepIndex];
-    const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
-    if (isCardStep) {
-      const assetList = document.getElementById('assetList');
-      if (assetList) {
-        const listRect = assetList.getBoundingClientRect();
-        const ringTop = rect.top - pad;
-        const ringHeight = rect.height + pad * 2;
-        if (ringTop < listRect.top) {
-          const clipTop = listRect.top - ringTop;
-          this.dRingEl.style.clipPath = `inset(${clipTop}px 0 0 0)`;
-        } else if (ringTop + ringHeight > listRect.bottom) {
-          const clipBottom = (ringTop + ringHeight) - listRect.bottom;
-          this.dRingEl.style.clipPath = `inset(0 0 ${clipBottom}px 0)`;
-        } else {
-          this.dRingEl.style.clipPath = '';
-        }
-      }
-    } else {
-      this.dRingEl.style.clipPath = '';
-    }
-  },
-
-  // --- Version E helpers ---
-  positionEHalo(target) {
-    if (!this.eHaloEl || this.currentVersion !== 'E') return;
-    // For card steps, wrap the whole card
-    const card = target.closest('.asset-card');
-    const haloTarget = card || target;
-    const rect = haloTarget.getBoundingClientRect();
-    const pad = 4;
-    this.eHaloEl.style.left = (rect.left - pad) + 'px';
-    this.eHaloEl.style.top = (rect.top - pad) + 'px';
-    this.eHaloEl.style.width = (rect.width + pad * 2) + 'px';
-    this.eHaloEl.style.height = (rect.height + pad * 2) + 'px';
-    // Match border-radius to target (buttons get 4px, cards get 6px)
-    this.eHaloEl.style.borderRadius = card ? '6px' : '4px';
-
-    // Clip halo so it doesn't overlap navigation/toolbar (only for card-targeting steps)
-    const step = ONBOARDING_STEPS[this.currentStepIndex];
-    const isCardStep = step && (step.id === 'favorite' || step.id === 'flag');
-    if (isCardStep) {
-      const assetList = document.getElementById('assetList');
-      if (assetList) {
-        const listRect = assetList.getBoundingClientRect();
-        const haloTop = rect.top - pad;
-        const haloHeight = rect.height + pad * 2;
-        if (haloTop < listRect.top) {
-          const clipTop = listRect.top - haloTop;
-          this.eHaloEl.style.clipPath = `inset(${clipTop}px 0 0 0)`;
-        } else if (haloTop + haloHeight > listRect.bottom) {
-          const clipBottom = (haloTop + haloHeight) - listRect.bottom;
-          this.eHaloEl.style.clipPath = `inset(0 0 ${clipBottom}px 0)`;
-        } else {
-          this.eHaloEl.style.clipPath = '';
-        }
-      }
-    } else {
-      this.eHaloEl.style.clipPath = '';
-    }
-  },
-
 
 
   completeStep(eventName) {
@@ -1562,8 +1630,6 @@ const onboarding = {
     this.hidePopover();
     this.currentStepIndex++;
     this.saveState();
-
-    this.updateToolbar();
 
     if (this.currentStepIndex >= ONBOARDING_STEPS.length) {
       this.completeAll();
@@ -1578,14 +1644,6 @@ const onboarding = {
     this.removeDot();
     this.hidePopover();
     this.saveState();
-    this.updateToolbar();
-    // Version D: set progress to 100% then hide
-    const progressEl = document.getElementById('onboardingDProgress');
-    const fill = document.getElementById('onboardingDProgressFill');
-    if (fill) fill.style.width = '100%';
-    setTimeout(() => {
-      if (progressEl) progressEl.style.display = 'none';
-    }, 1500);
   },
 
   listenForCompletions() {
@@ -1620,96 +1678,8 @@ const onboarding = {
     }, true);
   },
 
-  // --- Prototype toolbar ---
-  initToolbar() {
-    this.toolbarStepsEl = document.getElementById('protoToolbarSteps');
-
-    this.toolbarStepsEl.innerHTML = '';
-    ONBOARDING_STEPS.forEach((step) => {
-      const dot = document.createElement('div');
-      dot.className = 'proto-step-dot';
-      dot.title = step.id;
-      this.toolbarStepsEl.appendChild(dot);
-    });
-
-    this.updateToolbar();
-
-    document.getElementById('protoResetBtn').addEventListener('click', () => {
-      this.removeDot();
-      this.hidePopover();
-      this.currentStepIndex = 0;
-      this.isComplete = false;
-      this.saveState();
-      this.updateToolbar();
-      // Reset favorites state
-      favoritedIds.clear();
-      showFavorites = false;
-      updateFavoritesNavBtn();
-      // Also reset any favorited stars
-      document.querySelectorAll('.asset-card-action-btn.favorited').forEach(btn => {
-        btn.classList.remove('favorited');
-        btn.querySelector('path')?.setAttribute('fill', 'none');
-        btn.closest('.asset-card-actions')?.classList.remove('has-favorited');
-      });
-      this.applyVersion();
-      render();
-      this.activateStep();
-    });
-
-    // Version switcher
-    document.querySelectorAll('.proto-version-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.proto-version-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        this.currentVersion = btn.dataset.version;
-        this.applyVersion();
-        // Reset onboarding to show changes
-        this.removeDot();
-        this.hidePopover();
-        this.currentStepIndex = 0;
-        this.isComplete = false;
-        this.saveState();
-        this.updateToolbar();
-        favoritedIds.clear();
-        showFavorites = false;
-        updateFavoritesNavBtn();
-        document.querySelectorAll('.asset-card-action-btn.favorited').forEach(b => {
-          b.classList.remove('favorited');
-          b.querySelector('path')?.setAttribute('fill', 'none');
-          b.closest('.asset-card-actions')?.classList.remove('has-favorited');
-        });
-        render();
-        this.activateStep();
-      });
-    });
-
-    document.getElementById('protoSkipBtn').addEventListener('click', () => {
-      if (this.isComplete) return;
-      this.removeDot();
-      this.hidePopover();
-      this.currentStepIndex++;
-      this.saveState();
-      if (this.currentStepIndex >= ONBOARDING_STEPS.length) {
-        this.completeAll();
-      } else {
-        this.activateStep();
-      }
-      this.updateToolbar();
-    });
-  },
-
-  updateToolbar() {
-    if (!this.toolbarStepsEl) return;
-    const dots = this.toolbarStepsEl.querySelectorAll('.proto-step-dot');
-    dots.forEach((dot, i) => {
-      dot.classList.remove('active', 'completed');
-      if (i < this.currentStepIndex || this.isComplete) {
-        dot.classList.add('completed');
-      } else if (i === this.currentStepIndex && !this.isComplete) {
-        dot.classList.add('active');
-      }
-    });
-  },
+  initToolbar() {},
+  updateToolbar() {},
 
   // Called after render() to re-place dot if target changed
   onRender() {
