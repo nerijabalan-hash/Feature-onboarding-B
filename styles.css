@@ -1,3 +1,9 @@
+@property --d-ring-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 /* =============================================
    PowerPoint Interface – Sorting of Assets
    ============================================= */
@@ -267,7 +273,7 @@ body {
 }
 
 .font-select { width: 100px; }
-.size-select { width: 50px; }
+.size-select { width: 40px; }
 
 .ribbon-sm-btn {
   width: 22px;
@@ -365,7 +371,7 @@ body {
 }
 
 .slide-thumb-wrapper.active .slide-thumb {
-  border-color: #3355f5;
+  border-color: #4a61ed;
   border-width: 2px;
 }
 
@@ -393,353 +399,14 @@ body {
   color: #888;
 }
 
-/* --- Templafy-branded slide thumbnail layouts --- */
-
-/* Shared */
-.st-accent-bar {
-  width: 24px;
-  height: 3px;
-  background: #3355f5;
-  border-radius: 1px;
-  margin-bottom: 2px;
-}
-
-/* Cover slide */
-.slide-thumb--cover {
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 0 !important;
-}
-.st-cover-stripe {
-  width: 8px;
-  flex-shrink: 0;
-  background: #3355f5;
-}
-.st-cover-body {
-  padding: 6px 8px 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex: 1;
-  min-width: 0;
-}
-.st-cover-logo {
-  font-size: 5.5px;
-  font-weight: 700;
-  color: #3355f5;
-  letter-spacing: .3px;
-  margin-bottom: auto;
-}
-.st-cover-title {
-  font-size: 9px !important;
-  color: #232323 !important;
-  line-height: 1.15;
-}
-.st-cover-date {
-  font-size: 4px;
-  color: #999;
-  margin-top: 3px;
-}
-
-/* Agenda slide */
-.slide-thumb--agenda {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-agenda-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 4px;
-}
-.st-agenda-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.st-agenda-num {
-  font-size: 5.5px;
-  font-weight: 700;
-  color: #3355f5;
-  min-width: 10px;
-}
-.st-agenda-text {
-  font-size: 5px;
-  color: #555;
-}
-
-/* Metrics slide */
-.slide-thumb--metrics {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-metrics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
-  margin-top: 4px;
-  flex: 1;
-}
-.st-metric {
-  background: #f0f2ff;
-  border-radius: 2px;
-  padding: 3px 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.st-metric-val {
-  font-size: 7px;
-  font-weight: 700;
-  color: #3355f5;
-  line-height: 1.1;
-}
-.st-metric-label {
-  font-size: 3.5px;
-  color: #888;
-  margin-top: 1px;
-}
-
-/* Content slide with bullets */
-.slide-thumb--content {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-bullet-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 5px;
-}
-.st-bullet {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.st-dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #3355f5;
-  flex-shrink: 0;
-}
-.st-line {
-  height: 2px;
-  background: #cdd2e0;
-  border-radius: 1px;
-  flex: 1;
-}
-.st-line.w90 { max-width: 90%; }
-.st-line.w80 { max-width: 80%; }
-.st-line.w70 { max-width: 70%; }
-.st-line.w60 { max-width: 60%; }
-
-/* Two-column slide */
-.slide-thumb--twocol {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.slide-thumb--twocol .st-twocol-row {
-  display: flex;
-  gap: 4px;
-  margin-top: 4px;
-  flex: 1;
-}
-.st-twocol-box {
-  flex: 1;
-  background: #f0f2ff;
-  border: 1px solid #d4dafc;
-  border-radius: 2px;
-  padding: 3px 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.st-box-title {
-  font-size: 4.5px;
-  font-weight: 700;
-  color: #3355f5;
-}
-.st-box-line {
-  height: 2px;
-  background: #cdd2e0;
-  border-radius: 1px;
-  width: 85%;
-}
-.st-box-line.short { width: 55%; }
-
-/* Chart slide */
-.slide-thumb--chart {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-chart-area {
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  padding-top: 2px;
-  margin-top: 3px;
-  border-bottom: 1px solid #e0e2e8;
-}
-.st-bar {
-  flex: 1;
-  background: #3355f5;
-  border-radius: 1px 1px 0 0;
-  min-width: 0;
-  opacity: .5;
-}
-.st-bar-highlight {
-  opacity: .9 !important;
-}
-.st-chart-labels {
-  display: flex;
-  justify-content: space-around;
-  font-size: 4px;
-  color: #999;
-  margin-top: 1px;
-}
-
-/* Three-column slide */
-.slide-thumb--threecol {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-threecol-row {
-  display: flex;
-  gap: 3px;
-  margin-top: 4px;
-  flex: 1;
-}
-.st-threecol-box {
-  flex: 1;
-  background: #f0f2ff;
-  border: 1px solid #d4dafc;
-  border-radius: 2px;
-  padding: 3px 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-}
-.st-threecol-icon {
-  font-size: 6px;
-  color: #3355f5;
-  line-height: 1;
-}
-
-/* Timeline slide */
-.slide-thumb--timeline {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-timeline {
-  position: relative;
-  height: 30px;
-  margin-top: 8px;
-}
-.st-tl-track {
+.slide-thumb-deco {
   position: absolute;
-  top: 4px;
-  left: 0;
   right: 0;
-  height: 2px;
-  background: #d4dafc;
-  border-radius: 1px;
-}
-.st-tl-item {
-  position: absolute;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-.st-tl-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3355f5;
-  border: 1px solid #fff;
-  box-sizing: border-box;
-}
-.st-tl-label {
-  font-size: 4px;
-  color: #888;
-}
-
-/* Table slide */
-.slide-thumb--table {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.st-table {
-  margin-top: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.st-table-header {
-  display: flex;
-  gap: 4px;
-  font-size: 4px;
-  font-weight: 700;
-  color: #555;
-  padding-bottom: 2px;
-  border-bottom: 1px solid #e0e2e8;
-}
-.st-table-header span { flex: 1; }
-.st-table-row {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-.st-table-row .st-line { flex: 2; height: 2px; }
-.st-tag {
-  width: 10px;
-  height: 5px;
-  border-radius: 2px;
-  flex: 1;
-}
-.st-tag.red { background: #f87171; }
-.st-tag.yellow { background: #fbbf24; }
-.st-tag.green { background: #34d399; }
-
-/* Line chart variant */
-.st-chart-line-area {
-  border-bottom: none !important;
-  padding: 0 !important;
-  margin-top: 2px !important;
-}
-.st-line-chart {
-  width: 100%;
+  width: 40%;
   height: 100%;
-}
-
-/* Checklist slide */
-.st-checklist {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 5px;
-}
-.st-check-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.st-checkbox {
-  width: 5px;
-  height: 5px;
-  border: 1px solid #bbb;
-  border-radius: 1px;
-  flex-shrink: 0;
-}
-.st-checkbox.checked {
-  background: #3355f5;
-  border-color: #3355f5;
+  background: linear-gradient(135deg, transparent 40%, #e8e8e8 40%, #e0e0e0 60%, #d8d8d8 80%, #d0d0d0);
+  opacity: .4;
 }
 
 /* ========== Slide Editor ========== */
@@ -781,16 +448,6 @@ body {
 .deco-top-right { right: -20px; top: -20px; }
 .deco-bottom-right { right: 40px; bottom: -10px; }
 
-.slide-accent-stripe {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 14px;
-  background: #3355f5;
-  z-index: 1;
-}
-
 .slide-logo {
   font-size: 12px;
   color: #666;
@@ -798,16 +455,7 @@ body {
   margin-bottom: 28%;
 }
 
-.slide-logo-text {
-  font-size: 14px;
-  font-weight: 700;
-  color: #3355f5;
-  letter-spacing: .5px;
-}
-
-.slide-content {
-  padding-left: 44px !important;
-}
+.slide-logo b { color: #00338d; font-weight: 700; }
 
 .slide-title {
   font-size: clamp(20px, 3vw, 38px);
@@ -1524,18 +1172,8 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 8px 0;
-  gap: 0;
+  gap: 2px;
   flex-shrink: 0;
-  overflow-y: auto;
-}
-.task-pane-collapsed > .collapsed-btn {
-  margin-bottom: 6px;
-}
-.task-pane-collapsed > .collapsed-btn--labeled {
-  margin-bottom: 12px;
-}
-.task-pane-collapsed > .collapsed-divider {
-  margin-bottom: 12px;
 }
 
 .collapsed-btn {
@@ -1566,51 +1204,6 @@ body {
 }
 
 .collapsed-btn-accent:hover { background: #d0e2fd; }
-
-.collapsed-btn.collapsed-btn--labeled {
-  flex-direction: column !important;
-  gap: 3px;
-  height: auto;
-  padding: 3px 0 2px;
-  width: 36px;
-}
-.collapsed-btn--labeled svg {
-  flex-shrink: 0;
-}
-.collapsed-label {
-  display: block;
-  font-size: 10px;
-  color: #777;
-  line-height: 1;
-  letter-spacing: -.1px;
-  white-space: nowrap;
-  text-align: center;
-  order: 2;
-}
-
-.collapsed-btn--notif {
-  position: relative;
-}
-.notif-badge {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 14px;
-  height: 14px;
-  background: #3355f5;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  box-sizing: border-box;
-  border: 1.5px solid #f3f3f3;
-  padding: 0;
-  text-indent: 0.5px;
-}
 
 .collapsed-divider {
   width: 20px;
@@ -2126,6 +1719,10 @@ body {
   transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.onboarding-popover.version-A {
+  border: 1px solid rgba(74, 97, 237, 0.12);
+}
+
 .onboarding-popover.visible {
   opacity: 1;
   transform: scale(1);
@@ -2180,6 +1777,113 @@ body {
   display: none;
 }
 
+/* ========== Prototype Control Bar ========== */
+.proto-toolbar {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 8px 16px;
+  z-index: 500;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.proto-toolbar-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,.5);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+.proto-toolbar-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.proto-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.2);
+  transition: background .2s;
+}
+
+.proto-step-dot.active {
+  background: #4a61ed;
+}
+
+.proto-step-dot.completed {
+  background: #107c10;
+}
+
+.proto-toolbar-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255,255,255,.15);
+}
+
+.proto-toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,.75);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background .15s;
+}
+
+.proto-toolbar-btn:hover {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+.proto-version-switcher {
+  display: flex;
+  gap: 2px;
+  background: rgba(255,255,255,.08);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.proto-version-btn {
+  width: 26px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .15s;
+}
+
+.proto-version-btn:hover {
+  color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.08);
+}
+
+.proto-version-btn.active {
+  background: rgba(255,255,255,.18);
+  color: #fff;
+}
+
 /* ========== Popover Version B: step counter + action-oriented ========== */
 .onboarding-popover.version-B .onboarding-popover-header {
   display: flex;
@@ -2188,12 +1892,13 @@ body {
 .onboarding-popover.version-B {
   display: flex;
   flex-direction: column;
-  padding: 14px 16px 18px;
+  padding: 14px 16px 12px;
   max-width: 232px;
   border-radius: 12px;
   background: rgba(32, 30, 27, 1);
   box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.04), 0px 3px 6px rgba(41, 48, 56, 0.04), 0px 9px 18px rgba(41, 48, 56, 0.04);
-  transform: translateX(-12px);
+  transform: scale(0.95);
+  transition: opacity 250ms ease, transform 250ms ease;
   gap: 2px;
 }
 
@@ -2235,24 +1940,24 @@ body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(250, 252, 246, 0.25);
-  outline: none;
+  background: rgba(115, 115, 115, 1);
+  outline: 1px solid rgba(186, 186, 186, 0.3);
   transition: background 400ms ease;
 }
 
 .onboarding-popover.version-B .onboarding-popover-step-dot.active {
-  background: rgb(74, 97, 237);
-  outline: none;
+  background: rgba(149, 163, 244, 1);
+  outline-color: rgba(149, 163, 244, 0.4);
 }
 
 .onboarding-popover.version-B .onboarding-popover-step-dot.done {
-  background: rgba(250, 252, 246, 0.85);
+  background: rgba(137, 137, 137, 1);
 }
 
 .onboarding-popover.version-B .onboarding-popover-text {
   font-size: 12px;
   font-weight: 400;
-  color: rgba(250, 252, 246, 0.8);
+  color: rgba(186, 186, 186, 1);
   line-height: 1.45;
   order: 2;
 }
@@ -2264,6 +1969,402 @@ body {
   box-shadow: 0 0 0 3px rgba(74, 97, 237, 0.08);
   transition: background 300ms ease, box-shadow 300ms ease;
 }
+
+/* ========== Popover Version C: frosted glass pill ========== */
+.onboarding-popover.version-C {
+  background: rgba(250, 252, 246, 0.55);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0px 0px 0px 1px rgba(41, 48, 56, 0.04),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.6),
+    0px 4px 12px rgba(41, 48, 56, 0.06);
+  border-radius: 16px;
+  padding: 14px 16px 12px;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onboarding-popover.version-C .onboarding-popover-header {
+  display: flex;
+  order: 1;
+  margin-bottom: 2px;
+}
+
+.onboarding-popover.version-C .onboarding-popover-icon {
+  display: none;
+}
+
+.onboarding-popover.version-C .onboarding-popover-title {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.onboarding-popover.version-C .onboarding-popover-step {
+  display: flex;
+  order: 3;
+  margin-bottom: 0;
+  padding: 6px 0 0;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.onboarding-popover.version-C .onboarding-popover-step-counter {
+  display: none;
+}
+
+.onboarding-popover.version-C .onboarding-popover-step-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.onboarding-popover.version-C .onboarding-popover-step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(186, 186, 186, 0.5);
+  transition: background 400ms ease;
+}
+
+.onboarding-popover.version-C .onboarding-popover-step-dot.active {
+  background: rgba(74, 97, 237, 0.7);
+}
+
+.onboarding-popover.version-C .onboarding-popover-step-dot.done {
+  background: rgba(137, 137, 137, 0.6);
+}
+
+.onboarding-popover.version-C .onboarding-popover-text {
+  display: block;
+  font-size: 12px;
+  color: #323232;
+  line-height: 1.45;
+  order: 2;
+}
+
+/* ========== Version C: modern beacon dot ========== */
+.version-C-dot .onboarding-dot {
+  width: 10px;
+  height: 10px;
+  background: #4a61ed;
+  animation: beacon-dot 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(74, 97, 237, 0.4);
+}
+
+.version-C-dot .onboarding-ring {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  transform: translate(-1px, -1px);
+  animation: beacon-ripple-1 3s ease-out infinite;
+}
+
+.version-C-dot .onboarding-ring-2 {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  z-index: 58;
+  pointer-events: none;
+  transform: translate(-1px, -1px);
+  animation: beacon-ripple-2 3s ease-out infinite;
+}
+
+@keyframes beacon-dot {
+  0% { transform: scale(1); opacity: 1; }
+  30% { transform: scale(1.8); opacity: 0.25; }
+  60% { transform: scale(0.4); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes beacon-ripple-1 {
+  0% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  15% { transform: translate(-1px, -1px) scale(1.8); opacity: 0.1; }
+  30% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  45% { transform: translate(-1px, -1px) scale(1.8); opacity: 0.1; }
+  60% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  100% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+}
+
+@keyframes beacon-ripple-2 {
+  0% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  15% { transform: translate(-1px, -1px) scale(1.8); opacity: 0.1; }
+  30% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  45% { transform: translate(-1px, -1px) scale(1.8); opacity: 0.1; }
+  60% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+  100% { transform: translate(-1px, -1px) scale(1); opacity: 0.7; }
+}
+
+/* ========================================================
+   VERSION D: SPOTLIGHT THEATER
+   ======================================================== */
+
+/* --- Version D dot: animated gradient ring --- */
+.version-D-dot .onboarding-dot {
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+  pointer-events: none;
+}
+
+.version-D-dot .onboarding-ring {
+  animation: none;
+  background: transparent;
+  opacity: 0;
+}
+
+.onboarding-d-ring {
+  position: fixed;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 61;
+  overflow: visible;
+}
+
+.onboarding-d-ring-inner {
+  position: absolute;
+  inset: -3px;
+  border-radius: 8px;
+  border: none;
+  background: conic-gradient(
+    from var(--d-ring-angle, 0deg),
+    transparent 0%,
+    rgba(74, 97, 237, 0.12) 5%,
+    #4a61ed 18%,
+    #7b8ff2 32%,
+    rgba(74, 97, 237, 0.12) 45%,
+    transparent 52%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 3px;
+  animation: d-ring-snake 4s linear infinite;
+}
+
+@keyframes d-ring-snake {
+  0% { --d-ring-angle: 0deg; }
+  100% { --d-ring-angle: 360deg; }
+}
+
+/* --- Version D popover: rich card --- */
+.onboarding-popover.version-D {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  max-width: 232px;
+  box-shadow: 0px 0px 0px 1px rgba(41, 48, 56, 0.04), 0px 3px 6px rgba(41, 48, 56, 0.04), 0px 9px 18px rgba(41, 48, 56, 0.04);
+  border: 2px solid rgba(74, 97, 237, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onboarding-popover.version-D .onboarding-popover-header {
+  display: flex;
+  padding: 0;
+}
+
+.onboarding-popover.version-D .onboarding-popover-step {
+  display: none;
+}
+
+.onboarding-popover.version-D .onboarding-popover-step-counter {
+  display: none;
+}
+
+.onboarding-popover.version-D .onboarding-popover-step-icon {
+  display: none;
+}
+
+.onboarding-popover.version-D .onboarding-popover-text {
+  font-size: 13px;
+  color: #323232;
+  line-height: 1.45;
+}
+
+.onboarding-popover.version-D .onboarding-popover-dots {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.onboarding-popover.version-D .onboarding-popover-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d6d6d6;
+}
+
+.onboarding-popover.version-D .onboarding-popover-dots .dot.active {
+  background: rgba(74, 97, 237, 0.5);
+}
+
+.onboarding-popover.version-D::after {
+  display: none;
+}
+
+/* --- Version D popover entrance --- */
+.onboarding-popover.version-D {
+  transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* ========================================================
+   Version E – Halo Glow Effect
+   ======================================================== */
+
+/* --- Version E dot: hidden (halo replaces dot/ring) --- */
+.version-E-dot .onboarding-dot {
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+  pointer-events: none;
+}
+
+.version-E-dot .onboarding-ring {
+  animation: none;
+  background: transparent;
+  opacity: 0;
+}
+
+/* --- Halo element --- */
+.onboarding-e-halo {
+  position: fixed;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 61;
+  animation: halo-breathe 3s ease-in-out infinite, halo-ignite 500ms ease-out both;
+}
+
+/* --- Halo breathing: invisible → soft glow expands 4px out → fades back --- */
+/* Uses box-shadow spread to grow evenly on all sides (no shifting) */
+@keyframes halo-breathe {
+  0%, 100% {
+    box-shadow:
+      0 0 0px 0px rgba(74, 97, 237, 0),
+      0 0 0px 0px rgba(74, 97, 237, 0),
+      0 0 0px 0px rgba(74, 97, 237, 0);
+    opacity: 0;
+  }
+  50% {
+    box-shadow:
+      0 0 3px 2px rgba(74, 97, 237, 0.35),
+      0 0 8px 3px rgba(74, 97, 237, 0.2),
+      0 0 14px 4px rgba(74, 97, 237, 0.08);
+    opacity: 1;
+  }
+}
+
+/* --- Halo entrance (light igniting) --- */
+@keyframes halo-ignite {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Version E popover: clean white with blue top border --- */
+.onboarding-popover.version-E {
+  background: rgba(24, 26, 35, 1);
+  border-radius: 12px;
+  padding: 14px 16px 12px;
+  max-width: 232px;
+  border-top: 2px solid rgba(74, 97, 237, 0.7);
+  box-shadow:
+    0px 0px 0px 1px rgba(74, 97, 237, 0.08),
+    0px 3px 6px rgba(41, 48, 56, 0.04),
+    0px 9px 18px rgba(41, 48, 56, 0.04),
+    inset 0 0 20px rgba(74, 97, 237, 0.06),
+    inset 0 8px 16px -8px rgba(74, 97, 237, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.onboarding-popover.version-E .onboarding-popover-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  order: 3;
+  padding: 6px 0 0;
+  margin-bottom: 0;
+}
+
+.onboarding-popover.version-E .onboarding-popover-step-counter {
+  display: none;
+}
+
+.onboarding-popover.version-E .onboarding-popover-step-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.onboarding-popover.version-E .onboarding-popover-step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(115, 115, 115, 1);
+  outline: 1px solid rgba(186, 186, 186, 0.3);
+  transition: background 400ms ease;
+}
+
+.onboarding-popover.version-E .onboarding-popover-step-dot.active {
+  background: rgba(149, 163, 244, 1);
+  outline-color: rgba(149, 163, 244, 0.4);
+}
+
+.onboarding-popover.version-E .onboarding-popover-step-dot.done {
+  background: rgba(137, 137, 137, 1);
+}
+
+.onboarding-popover.version-E .onboarding-popover-header {
+  display: flex;
+  order: 1;
+  margin-bottom: 2px;
+}
+
+.onboarding-popover.version-E .onboarding-popover-icon {
+  display: none;
+}
+
+.onboarding-popover.version-E .onboarding-popover-title {
+  font-family: 'Garant', 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(253, 253, 253, 1);
+  line-height: 18px;
+}
+
+.onboarding-popover.version-E .onboarding-popover-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(186, 186, 186, 1);
+  line-height: 1.45;
+  order: 2;
+}
+
+/* --- Version E popover entrance --- */
+.onboarding-popover.version-E {
+  transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 
 .asset-list::-webkit-scrollbar,
 .slide-panel::-webkit-scrollbar { width: 6px; }
