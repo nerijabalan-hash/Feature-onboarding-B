@@ -1719,6 +1719,32 @@ body {
   transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.onboarding-popover-close {
+  display: none;
+}
+
+.onboarding-popover.version-B .onboarding-popover-close {
+  display: block;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  border-radius: 4px;
+  padding: 0;
+}
+
+.onboarding-popover.version-B .onboarding-popover-close:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 .onboarding-popover.version-A {
   border: 1px solid rgba(74, 97, 237, 0.12);
 }
@@ -1726,6 +1752,7 @@ body {
 .onboarding-popover.visible {
   opacity: 1;
   transform: scale(1);
+  pointer-events: auto;
 }
 
 .onboarding-popover-header {

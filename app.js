@@ -1128,6 +1128,10 @@ const onboarding = {
     this.popoverEl = document.getElementById('onboardingPopover');
     this.popoverTextEl = document.getElementById('onboardingPopoverText');
 
+    // Close button
+    const closeBtn = document.getElementById('onboardingPopoverClose');
+    if (closeBtn) closeBtn.addEventListener('click', () => this.hidePopover());
+
     // Check localStorage
     const saved = this.loadState();
     if (saved && saved.version >= ONBOARDING_VERSION && saved.completed) {
