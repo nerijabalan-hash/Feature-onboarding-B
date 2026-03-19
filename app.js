@@ -1160,7 +1160,7 @@ const onboarding = {
     this.ringEl.className = 'onboarding-ring';
 
     // Dot hover shows popover
-    this.dotEl.addEventListener('mouseenter', () => this.showPopoverTimed());
+    this.dotEl.addEventListener('mouseenter', () => this.showPopoverHold());
     this.dotEl.addEventListener('mouseleave', () => this.hidePopoverDelayed());
 
     // Listen for completion events
@@ -1263,7 +1263,7 @@ const onboarding = {
     this._positionDotOnTarget(target, step.dotOffset);
 
     // Show popover when hovering the dot's area or the target
-    this._targetHoverIn = () => this.showPopoverTimed();
+    this._targetHoverIn = () => this.showPopoverHold();
     this._targetHoverOut = () => this.hidePopoverDelayed();
     target.addEventListener('mouseenter', this._targetHoverIn);
     target.addEventListener('mouseleave', this._targetHoverOut);
@@ -1464,6 +1464,12 @@ const onboarding = {
     }
 
     this.popoverEl.classList.add('visible');
+  },
+
+  showPopoverHold() {
+    clearTimeout(this._popoverLeaveTimer);
+    clearTimeout(this._popoverAutoHide);
+    this.showPopover();
   },
 
   showPopoverTimed() {
