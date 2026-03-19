@@ -1132,6 +1132,12 @@ const onboarding = {
     const closeBtn = document.getElementById('onboardingPopoverClose');
     if (closeBtn) closeBtn.addEventListener('click', () => this.hidePopover());
 
+    // Pause auto-hide while hovering the popover
+    this.popoverEl.addEventListener('mouseenter', () => clearTimeout(this._popoverAutoHide));
+    this.popoverEl.addEventListener('mouseleave', () => {
+      this._popoverAutoHide = setTimeout(() => this.hidePopover(), 2000);
+    });
+
     // Check localStorage
     const saved = this.loadState();
     if (saved && saved.version >= ONBOARDING_VERSION && saved.completed) {
@@ -1151,7 +1157,7 @@ const onboarding = {
     this.ringEl.className = 'onboarding-ring';
 
     // Dot hover shows popover
-    this.dotEl.addEventListener('mouseenter', () => this.showPopover());
+    this.dotEl.addEventListener('mouseenter', () => this.showPopoverTimed());
     this.dotEl.addEventListener('mouseleave', () => this.hidePopover());
 
     // Listen for completion events
@@ -1254,7 +1260,7 @@ const onboarding = {
     this._positionDotOnTarget(target, step.dotOffset);
 
     // Show popover when hovering the dot's area or the target
-    this._targetHoverIn = () => this.showPopover();
+    this._targetHoverIn = () => this.showPopoverTimed();
     this._targetHoverOut = () => this.hidePopover();
     target.addEventListener('mouseenter', this._targetHoverIn);
     target.addEventListener('mouseleave', this._targetHoverOut);
@@ -1457,7 +1463,14 @@ const onboarding = {
     this.popoverEl.classList.add('visible');
   },
 
+  showPopoverTimed() {
+    this.showPopover();
+    clearTimeout(this._popoverAutoHide);
+    this._popoverAutoHide = setTimeout(() => this.hidePopover(), 2000);
+  },
+
   hidePopover() {
+    clearTimeout(this._popoverAutoHide);
     if (this.popoverEl) this.popoverEl.classList.remove('visible');
   },
 
